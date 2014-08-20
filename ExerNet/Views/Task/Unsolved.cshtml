@@ -1,0 +1,14 @@
+﻿@model int
+<div id="solveTask">
+    @using (Ajax.BeginForm("SolveTask", new { id = Model }, new AjaxOptions { UpdateTargetId = "solveTask" }))
+    {
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" name="solveTry" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-warning" type="submit" value="Try">@Resources.Resource.TryToSolve</button>
+                </span>
+            </div>
+        </div>
+    }
+</div>

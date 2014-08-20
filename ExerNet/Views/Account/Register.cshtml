@@ -1,0 +1,49 @@
+﻿@model Exernet.Models.RegisterViewModel
+@{
+    ViewBag.Title = Resources.Resource.Registration;
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-lg-9">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>@Resources.Resource.NewAccount</h4>
+            <hr />
+            @Html.ValidationSummary()
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="UserName">@Resources.Resource.UserName</label>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Email">@Resources.Resource.Email</label>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Password">@Resources.Resource.Password</label>
+                <div class="col-md-9">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="ConfirmPassword">@Resources.Resource.ConfirmPassword</label>
+                <div class="col-md-9">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" class="btn btn-default" value=@Resources.Resource.Registration />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

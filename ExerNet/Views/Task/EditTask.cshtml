@@ -1,0 +1,93 @@
+﻿@using Exernet;
+@model Exernet.Models.ExernetTaskViewModel
+@{
+    ViewBag.Title = "Create New Task";
+}
+@Scripts.Render("~/bundles/markdownjs")
+@Styles.Render("~/Content/markdown")
+
+
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Autocomplete - Multiple values</title>
+
+
+    <script src="~/Scripts/myJava.js"></script>
+
+</head>
+
+<h2>Edit Task</h2>
+
+
+
+@using (Html.BeginForm("CreateTask", "Task", new { ReturnUrl = "/Home/Index" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="bs-component">
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                </div>
+                
+                <div class="form-group" hidden="">
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Tags, new { @class = "form-control", id = "tags"})
+                        </div>
+                    </div>
+                    <div class="col-md-3" align="right">
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.Category, new SelectList(
+                                                new List<Object>{
+                                                new{ value = Resources.Category.Math, text = Resources.Category.Math},
+                                                new{ value = Resources.Category.Cult, text = Resources.Category.Cult},
+                                                new{ value = Resources.Category.Geography, text = Resources.Category.Geography},
+                                                new{ value = Resources.Category.Physics, text = Resources.Category.Physics},
+                                                new{ value = Resources.Category.Chemistry, text = Resources.Category.Chemistry},
+                                                new{ value = Resources.Category.WithoutCategory, text = Resources.Category.WithoutCategory}
+
+                            }, "value", "text", Resources.Category.WithoutCategory), new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.TextAreaFor(m => m.Text, new { data_provide = "markdown", rows = "10" })
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Answers, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Videos, new { @class = "form-control", placeholder = "Videos links like http://www.youtube.com/embed/WIH79zPH7L0, http://www.youtube.com/embed/WIH79zPH9k0 ?" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class=" col-md-11">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

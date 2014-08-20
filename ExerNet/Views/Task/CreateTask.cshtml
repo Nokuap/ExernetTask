@@ -1,0 +1,96 @@
+﻿@using Exernet;
+@model Exernet.Models.ExernetTaskViewModel
+@{
+    ViewBag.Title = "Create New Task";
+}
+@Scripts.Render("~/bundles/markdownjs")
+@Styles.Render("~/Content/markdown")
+
+
+    <title>Create task</title>
+    <script src="~/Scripts/myJava.js"></script>
+    <script src="~/Scripts/add-more-pictures.js"></script>
+    <script src="~/Content/bootstrap-markdown/bootstrap-markdown.ru.js"></script>
+
+  
+
+<h2>@Resources.Resource.CreateTask</h2>
+<div class="row">
+    <div class="col-lg-6">
+
+        @using (Html.BeginForm("CreateTask", "Task", new { ReturnUrl = "/Home/Index" }, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {
+            @Html.ValidationSummary()
+            <div class="bs-component">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = Resources.Resource.TitlePlaceholder })
+                </div>
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Tags, new { @class = "form-control", id = "tags", placeholder = Resources.Resource.TagsPlaceholder })
+                        </div>
+                    </div>
+                    <div class="col-md-3" align="right">
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.Category, new SelectList(
+                                                new List<Object>{
+                                                new{ value = Resources.Category.Math, text = Resources.Category.Math},
+                                                new{ value = Resources.Category.Cult, text = Resources.Category.Cult},
+                                                new{ value = Resources.Category.Geography, text = Resources.Category.Geography},
+                                                new{ value = Resources.Category.Physics, text = Resources.Category.Physics},
+                                                new{ value = Resources.Category.Chemistry, text = Resources.Category.Chemistry},
+                                                new{ value = Resources.Category.WithoutCategory, text = Resources.Category.WithoutCategory}
+
+                            }, "value", "text", Resources.Category.WithoutCategory), new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    @Html.TextAreaFor(m => m.Text, new { data_provide = "markdown", rows = "10" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Answers, new { @class = "form-control", placeholder = Resources.Resource.AnswersPlaceholder })
+                </div>
+
+                @*<div class="form-group">
+                        <input type="file" name="Images[0]" id="Images" />
+                    </div>*@
+
+                <div class="form-group">
+                    <label for="inputs" class="control-label">@Resources.Resource.AddImages</label>
+                </div>
+                    <table id="inputs"></table>
+                <div class="form-group">
+                    <input type="button" class="btn btn-xs btn-default" value=@Resources.Resource.AddMoreImage onclick="addInput()">
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Videos, new { @class = "form-control", placeholder = Resources.Resource.VideosPlaceholder })
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value=@Resources.Resource.Submit class="btn btn-success" />
+                </div>
+            </div>
+
+
+
+
+        }
+
+    </div>
+    <div class="col-lg-6">
+        @{ Html.RenderPartial("Formula"); }
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,48 @@
+﻿@model Exernet.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = Resources.Resource.Registration;
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@Resources.Resource.AssocieteYour @ViewBag.LoginProvider @Resources.Resource.Account.</h3>
+
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>@Resources.Resource.AssociationForm</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+    <p class="text-info"><div>
+    @Resources.Resource.SuccesfullyAuth <strong>@ViewBag.LoginProvider</strong>.
+    @Resources.Resource.PleaseEnterEmail
+</div>
+    </p>
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="UserName">@Resources.Resource.UserName</label>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Email">@Resources.Resource.Email</label>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" class="btn btn-default" value=@Resources.Resource.Registration />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

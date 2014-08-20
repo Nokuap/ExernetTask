@@ -1,0 +1,32 @@
+﻿@using Microsoft.Owin.Security
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+<h4>@Resources.Resource.AnotherService</h4>
+<hr />
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0)
+    {
+        <div>
+            <p>@Resources.Resource.NoExternalAuth</p>
+        </div>
+    }
+    else
+    {
+        
+        string action = Model.Action;
+        string returnUrl = Model.ReturnUrl;
+        using (Html.BeginForm(action, "Account", new { ReturnUrl = returnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                @foreach (AuthenticationDescription p in loginProviders)
+{
+    <button type="submit" class="btn btn-primary social-login-btn social-@p.AuthenticationType.ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="fa fa-@p.AuthenticationType.ToLower()"></i></button>
+}
+                   
+                </p>
+            </div>
+        }
+    }
+}

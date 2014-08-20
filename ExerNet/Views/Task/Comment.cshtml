@@ -1,0 +1,27 @@
+﻿@model Exernet.Models.Comment
+
+
+
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object pic img-circle" style="width: 50px" src="@Model.User.ProfileFotoURL" alt="">
+
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">
+            @Html.ActionLink(Model.User.UserName, "Details", "User", routeValues: new { id = Model.User.UserName }, htmlAttributes: new { title = String.Format("{0} account page", Model.User.UserName) })
+            <small>@Model.Date</small>
+        </h4>
+
+
+        <div class="row well">
+            <div class="col-md-12" style="word-break:break-all">
+                <p>@Html.Raw(Model.Text)</p>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

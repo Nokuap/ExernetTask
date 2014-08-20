@@ -1,0 +1,16 @@
+﻿@model Exernet.Models.Solution
+
+@if (!Model.Correct)
+{
+    <div class="alert alert-info">
+        @Html.Action("CheckSolve", "Task", new { id = Model.Task.Id })
+        @Resources.Resource.WrongSolve
+    </div>
+}
+else
+{
+    <div class="alert alert-success">
+  @Resources.Resource.YouSolve
+</div>
+}
+

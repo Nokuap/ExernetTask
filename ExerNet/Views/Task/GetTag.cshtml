@@ -1,0 +1,48 @@
+﻿@model IQueryable<Exernet.Models.Tag>
+
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.tagcanvas.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (!$('#myCanvas').tagcanvas({
+                outlineColour: '#ff00ff',
+                reverse: true,
+                depth: 0.8,
+                maxSpeed: 0.05,
+                textFont: null,
+                textColour: null,
+                weightMode: 'size',
+                weight: true,
+                weightGradient: {
+               0: '#f00', // red
+                //0.33: '#ff0', // yellow
+                //0.66: '#0f0', // green
+               1: '#00f'  // blue
+            }
+            }, 'tags')) {
+                // something went wrong, hide the canvas container
+                $('#myCanvasContainer').hide();
+            }
+        });
+    </script>
+
+    <div id="myCanvasContainer">
+        <canvas width="440" height="440" id="myCanvas">
+            <p>Anything in here will be replaced on browsers that support the canvas element</p>
+        </canvas>
+    </div>
+    <div id="tags" style="font-size: 50%">
+
+        
+        @{ var size = (float)Model.Count()*40;}
+
+        @foreach (Exernet.Models.Tag tag in Model)
+{
+    <a href="http://localhost:54084/Task/ShowTags?tag=@tag.Text" style="font-size: @(size)%">@tag.Text</a>
+    size = size - 30;
+}
+
+
+        
+    </div>

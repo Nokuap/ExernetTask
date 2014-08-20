@@ -1,0 +1,146 @@
+﻿@using Microsoft.AspNet.Identity
+@model Exernet.Models.ShowUserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@Resources.Resource.AccountPage</h3>
+<hr />
+<div class="well row">
+    <div class="col-md-2">
+        @if (Model.ProfileFotoURL != null) 
+        {
+            <img class="pic img-circle" src="@Model.ProfileFotoURL" alt="No profile foto found" /> 
+        }
+        else
+        {
+            <img class="pic img-circle" src="http://res.cloudinary.com/goodcloud/image/upload/v1407491904/Exernet/blue-user-icon.png" alt="No profile foto found" />
+        }
+    </div>
+    <div class="col-md-4">
+        <h2>@Model.UserName</h2>
+        <h4>e-mail: @Model.Email</h4>
+        @if (@User.Identity.IsAuthenticated && @Model.UserName.Equals(@User.Identity.Name))
+        {
+        @Html.ActionLink(Resources.Resource.ChangePassword, "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+        <div class="btn btn-xs btn-primary" style="margin:10px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-picture"></span> @Resources.Resource.ChangeProfilePicture</div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Resource.Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@Resources.Resource.UploadNewPhoto</h4>
+                    </div>
+                    
+                    @using (Html.BeginForm("Details", "User", new { id = @User.Identity.Name }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div>
+                                <div class="modal-body">
+                                    <form class="form-group">
+                                        <fieldset>
+                                            <input type="file" name="fileUpload" accept="image/*" class="btn btn-default" title="Choose image" />
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-success" value="Save picture" />
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">@Model.TasksQuantity</span>
+               @Resources.Resource.NumberOfUploadTasks
+            </li>
+            <li class="list-group-item">
+                <span class="badge">@Model.SolutionsQuantity</span>
+                @Resources.Resource.NumberOfTry
+            </li>
+            <li class="list-group-item">
+                <span class="badge">@Model.ResolvedTasksQuantity</span>
+                @Resources.Resource.SolvedTasks
+            </li>
+            <li class="list-group-item">
+                <span class="badge">@Model.Rating</span>
+                @Resources.Resource.Rating
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    @if (@User.Identity.IsAuthenticated && @Model.UserName.Equals(@User.Identity.Name))
+    {
+        <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 15px;">
+          <li class="active"><a href="#tasks" role="tab" data-toggle="tab">@Resources.Resource.Tasks</a></li>
+          <li class=""><a href="#solutions" role="tab" data-toggle="tab">@Resources.Resource.Solutions</a></li>
+            @if (User.IsInRole("Administrator"))
+            { 
+                <li class=""><a href="#users" role="tab" data-toggle="tab">@Resources.Resource.Users</a></li>
+            }
+        </ul>
+        <div id="content" class="tab-content">
+            <div class="tab-pane fade active in" id="tasks">
+                <div id="postswrapper">
+                    <div id="@Model.UserName"></div>
+                        @if (@Model.Tasks.Count() > 0)
+                        {
+                            Html.RenderAction("ViewListOfTasks", "User", new { Model = Model.Tasks });
+                        }
+                        else
+                        {
+                            <p>@Html.Raw(Resources.Resource.NoYourTasks)</p>
+                        }
+                    <div id="loadmoreajaxloader" style="display:none;"><center><img src="~/Scripts/ajax-loader.gif" /></center></div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="solutions">
+                @if (@Model.Solutions.Count() > 0) 
+                { 
+                    foreach (var p in @Model.Solutions)
+                    {
+                        <div class="item">
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>@Html.Raw(Resources.Resource.NoYourSolutions)</p>
+                }
+            </div>
+            <div class="tab-pane fade" id="users">
+                @Html.Action("ShowUsers", "User")
+            </div>
+
+        </div>
+    }
+    else 
+    { 
+        <h2>@Resources.Resource.Tasks</h2>
+        <hr/>
+        <div class="tab-pane fade active in" id="tasks">
+            <div id="postswrapper">
+                <div id="@Model.UserName"/>
+                @if (@Model.Tasks.Count()>0)
+                {
+                    Html.RenderAction("ViewListOfTasks", "User", new { Model = Model.Tasks });
+                }
+                else
+                { 
+                    <p>@Html.Raw(Resources.Resource.NoTasks)</p>
+                }
+                <div id="loadmoreajaxloader" style="display:none;"><center><img src="~/Scripts/ajax-loader.gif" /></center></div>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/Scripts/infinite-scrolling.js"></script>
+

@@ -1,0 +1,10 @@
+﻿@model List<Exernet.Models.ExernetTask>
+@{
+    ViewBag.Title = "ShowTags";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h2>All tasks with tag: @ViewBag.TagSearch</h2>
+    @{Html.RenderPartial("/Views/Task/_ShowTaskOnly.cshtml", Model);}
+</div>

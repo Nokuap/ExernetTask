@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity
+@model List<Exernet.Models.ExernetTask>
+@foreach(var item in Model){
+    <div class="item col-md-12" id="element_@item.Id">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="word-break:break-all;">
+            <div class="row">
+                <div class="col-md-8 pull-left">
+                    @Html.ActionLink('"' + item.Title + '"', "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { title = String.Format("Task \"{0}\" view page", item.Title) })
+                    @Resources.Resource.By
+                    @Html.ActionLink(item.User.UserName, "Details", "User", routeValues: new { id = item.User.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg+" \"{0}\"", item.User.UserName) })
+                    . @Resources.Resource.PostedOn @item.UploadDate
+                </div>
+
+                <div class="col-md-4" >
+                    <div class="row">
+                        <div class="col-md-11" align="right">
+                            @Resources.Resource.Tags
+                            @foreach (var str in item.Tags.Select(obj => obj.Text))
+                            {
+                               <a href="http://localhost:54084/Task/ShowTags?tag=@str" class="label label-primary">@str</a>
+                            }
+                        </div>
+                        @if(User.IsInRole("Administrator"))
+                        { 
+                        <div class="col-md-1">
+                            <button type="button" class="close delete" id="@item.Id" name="delete"  data-toggle="tooltip" data-placement="top" title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </div>
+        <div class="panel-body img-responsive" style="word-break:break-all">
+            <div class="col-md-12 ">
+                @Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(item.Text)))
+            </div>
+            @if (@item.Images.Count != 0)
+            {
+                <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-target="#images_@item.Id@item.User.UserName">
+                    <div class="glyphicon glyphicon-paperclip"></div> @Resources.Resource.ShowAttachedImages
+                </button>
+                
+                <div id="images_@item.Id@item.User.UserName" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Partial("_ShowImagesWithZoom", @item.Images)
+                    </div>
+                </div>
+                @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new {@class="btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
+            }
+        </div>
+    </div>
+</div>
+}
+<script type="text/javascript">
+    $(".delete").click(function () {
+        var id = $(this).attr("id");
+        $.ajax({
+            url: "http://localhost:54084/Task/DeleteTask",
+            dataType: "json",
+            type: "POST",
+            data: { id: id },
+            success: function (data) {
+                $("#element_" + data).remove();
+            },
+            error: function (e) {
+                alert("cannot delete this task");
+            }
+        });
+    });
+</script>

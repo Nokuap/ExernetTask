@@ -1,0 +1,68 @@
+﻿@using Exernet.Models
+@using Microsoft.AspNet.Identity
+@model IEnumerable<Exernet.Models.ApplicationUser>
+
+@foreach (var user in Model)
+{
+    <div class="item col-md-12" id="user_@user.UserName">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="col-md-2">
+                    @if (user.ProfileFotoURL != null)
+                    {<img class="img-circle img-responsive" src="@user.ProfileFotoURL" />}
+                    else
+                    {<img class="img-circle img-responsive" src="http://res.cloudinary.com/goodcloud/image/upload/v1407491904/Exernet/blue-user-icon.png" />}
+                </div>
+                <div class="col-md-10">
+                    <div class="col-md-7">
+                        <h4>@Html.ActionLink(user.UserName, "Details", "User", routeValues: new { id = user.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg + " \"{0}\"", user.UserName) })</h4>
+                        e-mail: @user.Email
+                        <h6>
+                            @if (user.IsAdmin)
+                            { @Resources.Resource.Administrator}
+                            else
+                            { @Resources.Resource.User}
+                        </h6>
+                        @if (user.LockoutEnabled)
+                        {
+                            <p>@Resources.Resource.UserBlocked @user.LockoutEndDateUtc</p>
+                        }
+                    </div>
+                    <div class="col-md-5">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-11" align="right">
+                    </div>
+                    <div class="col-md-1">
+                        @if(user.UserName!=User.Identity.Name)
+                        {
+                            <button type="button" class="close deleteuser" id="@user.UserName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(".deleteuser").click(function () {
+        var id = $(this).attr("id");
+        $.ajax({
+            url: "http://localhost:54084/User/Delete",
+            dataType: "json",
+            type: "POST",
+            data: { id: id },
+            success: function (data) {
+                $("#user_" + data).remove();
+            },
+            error: function (e) {
+                alert("cannot delete this user");
+            }
+        });
+    });
+</script>

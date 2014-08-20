@@ -1,0 +1,3 @@
+﻿@model Exernet.Models.ExernetTask
+
+<h4>@(Model.Likes.Where(a => a.Type == true).ToList().Count()-Model.Likes.Where(a => a.Type == false).ToList().Count())</h4>

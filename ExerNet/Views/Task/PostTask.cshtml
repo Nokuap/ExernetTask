@@ -1,0 +1,122 @@
+﻿@using Exernet;
+@model Exernet.Models.ExernetTask
+<!DOCTYPE html>
+<html lang="en">
+@{
+    ViewBag.Title = "PostTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>@Model.Title</h1>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="lead">
+                            @Resources.Resource.By @Html.ActionLink(Model.User.UserName, "Details", "User", routeValues: new { id = Model.User.UserName }, htmlAttributes: new { title = String.Format("{0} account page", Model.User.UserName) })
+                        </p>
+                    </div>
+                    <div class="col-md-4" align="right">
+                        @foreach (var str in Model.Tags.Select(obj => obj.Text))
+                        {
+                            <a href="http://localhost:54084/Task/ShowTags?tag=@str" class="label label-primary">@str</a>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div><p><span class="glyphicon glyphicon-time"></span> @Resources.Resource.PostedOn @Model.UploadDate </p></div>
+                    </div>
+                    <div class="col-md-4" align="right">
+                        <div><p><span class="glyphicon glyphicon-fire"></span> @Resources.Category.CategoryOfTask: @Model.Category  </p></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.ActionLink(Resources.Resource.Edit, "EditTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+                    </div>
+                    <div class="col-md-6" align=right>
+
+
+                        @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
+                        <div id="SetLike">
+                            @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                        </div>
+                        @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12 img img-responsive" style="word-break: break-all; width:inherit">
+                        <p class="img-responsive">@Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(Model.Text)))</p>
+                    </div>
+                </div>
+                <hr />
+
+                @if (Model.Videos.Count > 0)
+                {
+                    <div class="embed-responsive embed-responsive-16by9">
+                        @foreach (var str in Model.Videos.Select(obj => obj.VideoURL))
+                        {
+                            <iframe class="embed-responsive-item" src=@str frameborder="0" allowfullscreen></iframe>
+
+                        }
+                    </div>
+                    <hr />
+                }
+                <div class="row form-group">
+                    @Html.Partial("_ShowImagesWithZoom", Model.Images)
+                </div>
+                <hr>
+                <div class=" form-group">
+                    @Html.Action("CheckSolve", "Task", new { id = Model.Id })
+                </div>
+                @using (Ajax.BeginForm("LeaveComment", new { id = Model.Id }, new AjaxOptions
+                    {
+                        UpdateTargetId = "comment",
+                        InsertionMode = InsertionMode.InsertBefore
+                    }))
+                {
+                    <div class="well">
+                        <h4>@Resources.Resource.LeaveComment:</h4>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea class="form-control" name="commentText" rows="3"></textarea>
+                            </div>
+                            <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
+                        </form>
+                    </div>
+                }
+                <hr>
+
+                <div class="media" id="comment">
+                    <a class="pull-left" href="#">
+                    </a>
+                </div>
+
+                @foreach (var comment in Model.Comments.OrderByDescending(obj => obj.Date))
+                {
+                    Html.RenderPartial("/Views/Task/Comment.cshtml", comment);
+                }
+
+            </div>
+            <div class="col-md-4">
+                <div id="GetTag">
+                    @Html.Action("GetTag", "Task")
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
