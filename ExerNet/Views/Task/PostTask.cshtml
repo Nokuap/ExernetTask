@@ -79,6 +79,9 @@
                 <div class=" form-group">
                     @Html.Action("CheckSolve", "Task", new { id = Model.Id })
                 </div>
+
+               
+
                 @using (Ajax.BeginForm("LeaveComment", new { id = Model.Id }, new AjaxOptions
                     {
                         UpdateTargetId = "comment",
@@ -89,14 +92,21 @@
                         <h4>@Resources.Resource.LeaveComment:</h4>
                         <form role="form">
                             <div class="form-group">
-                                <textarea class="form-control" name="commentText" rows="3"></textarea>
+                                <textarea style="resize:none" class="form-control" name="commentText" rows="3"></textarea>
                             </div>
                             <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
                         </form>
+                        
+                        
                     </div>
                 }
-                <hr>
+                
+                    @Html.Partial("_EmailBox", Model)
+                 
+                    
+               
 
+                <hr>
                 <div class="media" id="comment">
                     <a class="pull-left" href="#">
                     </a>

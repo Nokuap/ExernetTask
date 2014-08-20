@@ -413,6 +413,7 @@
     <Content Include="Views\Task\FullTextSearching.cshtml" />
     <Content Include="Views\Task\ShowTags.cshtml" />
     <Content Include="Views\User\_AllUsersShort.cshtml" />
+    <Content Include="Views\Task\_EmailBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

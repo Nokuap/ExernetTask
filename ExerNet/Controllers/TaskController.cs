@@ -415,16 +415,13 @@ namespace Exernet.Controllers
         }
 
         [HttpPost]
-        public ViewResult Index(MailModel _objModelMail)
+        public ActionResult EmailSend(String mailBody, int id)
         {
-            if (ModelState.IsValid)
-            {
                 MailMessage mail = new MailMessage();
-                mail.To.Add(_objModelMail.To);
-                mail.From = new MailAddress(_objModelMail.From);
-                mail.Subject = _objModelMail.Subject;
-                string Body = _objModelMail.Body;
-                mail.Body = Body;
+                mail.To.Add(db.Tasks.Find(id).User.Email);
+                mail.From = new MailAddress("noreply@gmail.com",User.Identity.GetUserName());
+                mail.Subject = "Problem with your task" + db.Tasks.Find(id).Title;
+                mail.Body = mailBody;
                 mail.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
@@ -435,18 +432,12 @@ namespace Exernet.Controllers
                 smtp.Credentials = new System.Net.NetworkCredential
                 ("Nokuap@outlook.com", "298746773Pauk");// Enter seders User name and password
                 smtp.Send(mail);
-                return View("Index", _objModelMail);
-            }
-            else
-            {
-                return View();
-            }
+                //return View("Index", _objModelMail);
+                return RedirectToAction("PostTask", new { id = id});
+           
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        } 
+     
 
 
     }

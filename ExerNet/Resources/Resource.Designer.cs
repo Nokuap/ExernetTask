@@ -484,6 +484,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Опишите ошибку..
+        /// </summary>
+        public static string MistakeDiscription {
+            get {
+                return ResourceManager.GetString("MistakeDiscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщить об ошибке.
+        /// </summary>
+        public static string MistakeReport {
+            get {
+                return ResourceManager.GetString("MistakeReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string Name {
@@ -714,6 +732,15 @@ namespace Resources {
         public static string SavePicture {
             get {
                 return ResourceManager.GetString("SavePicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправить.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

@@ -420,4 +420,13 @@
   <data name="UserBlocked" xml:space="preserve">
     <value>Аккаунт заблокирован до</value>
   </data>
+  <data name="MistakeDiscription" xml:space="preserve">
+    <value>Опишите ошибку.</value>
+  </data>
+  <data name="MistakeReport" xml:space="preserve">
+    <value>Сообщить об ошибке</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
 </root>

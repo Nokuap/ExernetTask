@@ -426,4 +426,13 @@
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>
+  <data name="MistakeDiscription" xml:space="preserve">
+    <value>Describe mistake please.</value>
+  </data>
+  <data name="MistakeReport" xml:space="preserve">
+    <value>Report about mistake</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
 </root>
