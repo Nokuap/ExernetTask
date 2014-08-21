@@ -1,22 +1,17 @@
-﻿@model Exernet.Models.ExernetTaskViewModel
+﻿<link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
 
-<head>
-    <title>Example 1 - Embedded Installation</title>
+<style type="text/css">
+    #EqnEditor {
+        text-align: left;
+    }
+</style>
 
-    <!-- Scripts needed by CodeCogs Equation Editor -->
-    <link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
-    <script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
-    <script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
-
-    <style type="text/css">
-        #EqnEditor {
-            text-align: left;
-        }
-    </style>
-</head>
-
+<div class="container col-md-12" id="formulas_container">
+</div>
 <div data-toggle="modal" data-target="#modalEditFormula">
-    <input class="btn btn-default btn-xs" value="Add formula">
+    <input class="btn btn-default btn-xs" value="@Resources.Resource.AddFormula">
 </div>
 
 @using (Ajax.BeginForm("SaveFormula", new AjaxOptions { UpdateTargetId = "testbox" }))
@@ -28,44 +23,32 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Resource.Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">@Resources.Resource.AddFormula</h4>
             </div>
-            @*@using (Html.BeginForm("AddFormula", "Task", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {*@ 
-                <div>
-                    <div class="modal-body">
-                        <form class="form-group">
-                            <fieldset>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div id="editor"></div>
-                                        <textarea class="form-control" id="testbox" rows="3" ></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <center>
-                                            <img class="img-thumbnail" id="equation" />
-                                        </center>
-                                    </div>
+            <div>
+                <div class="modal-body">
+                    <form class="form-group">
+                        <fieldset>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div id="editor"></div>
+                                    <textarea class="form-control" id="testbox" rows="3" ></textarea>
                                 </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
-                    </div>                   
+                                <div class="form-group">
+                                    <center id="adding_formula">
+                                        <img class="img-thumbnail" id="equation" />
+                                    </center>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-            @*}*@
+                <div class="modal-footer">
+                    <button onclick="addFormulaUrl()" value="Comment" class="btn btn-primary" data-dismiss="modal">@Resources.Resource.Submit</button>
+                </div>                   
+            </div>
         </div>
     </div>
 </div>
 }
-
-@*@using (Ajax.BeginForm("SaveFormula", new { updateTargetId = "testbox" }))
-{
-    <textarea id="testbox" rows="3" cols="40"></textarea>
-    <img id="equation" name="formulaURL" />
-    <button type="submit" value="Comment" class="btn btn-primary">Submit</button>
-}*@
-
-
 
 <script type="text/javascript">
     EqEditor.embed('editor', '');
@@ -73,3 +56,5 @@
     EqEditor.add(a, false);
 </script>
 
+
+<script src="~/Scripts/add-more-formulas.js"></script>

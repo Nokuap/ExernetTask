@@ -49,8 +49,6 @@
                     @if (Model.Block)
                     {
                         <div class="col-md-6" align=right>
-
-
                             @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
                             <div id="SetLike">
                                 @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
@@ -67,6 +65,10 @@
                     </div>
                 </div>
                 <hr />
+
+                <div class="row form-group">
+                    @Html.Partial("_ShowFormulasWithZoom", Model.Formulas)
+                </div>
 
                 @if (Model.Videos.Count > 0)
                 {
@@ -102,8 +104,6 @@
                             </div>
                             <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
                         </form>
-
-
                     </div>
                 }
 

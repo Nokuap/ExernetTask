@@ -12,7 +12,6 @@
     <script src="~/Scripts/add-more-pictures.js"></script>
     <script src="~/Content/bootstrap-markdown/bootstrap-markdown.ru.js"></script>
 
-  
 
 <h2>@Resources.Resource.CreateTask</h2>
 <div class="row">
@@ -60,13 +59,13 @@
                 <div class="form-group">
                     <label for="inputs" class="control-label">@Resources.Resource.AddImages</label>
                 </div>
-                    <table id="inputs"></table>
+                    @{<table id="inputs"></table>}
                 <div class="form-group">
                     <input type="button" class="btn btn-default btn-xs" value="@Resources.Resource.AddMoreImage" onclick="addInput()">
                 </div>
 
                 <div class="form-group">
-                    @{ Html.RenderPartial("Formula",Model); }
+                    @{ Html.RenderPartial("Formula"); }
                 </div>
 
                 <div class="form-group">

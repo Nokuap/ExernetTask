@@ -50,6 +50,7 @@ namespace Exernet.Controllers
             task.Tags = GenerateTagsForTaskModel(model.Tags);
             task.Answers = GenerateAnswersForTaskModel(model.Answers);
             task.Videos = GenerateVideosForTaskModel(model.Videos);
+            task.Formulas = GenerateFormulasForTaskModel(model.Formulas);
             task.Title = model.Title;
             task.Category = model.Category;
             task.Block = true;
@@ -68,6 +69,15 @@ namespace Exernet.Controllers
             db.SaveChanges();
 
             return RedirectToAction("PostTask", new { id = GetId(model) });
+        }
+
+        private ICollection<Formula> GenerateFormulasForTaskModel(IEnumerable<string> formulasUrls)
+        {
+            List<Formula> formulas = new List<Formula>();
+            foreach(var formula in formulasUrls){
+                formulas.Add(new Formula() { FormulaURL = formula });
+            }
+            return formulas;
         }
 
         private string[] parseForVideo(string[] listOfVideos)
@@ -450,9 +460,5 @@ namespace Exernet.Controllers
             return View();
         }
 
-        public JsonResult AddFormula(string id)
-        {
-            return new JsonResult() { Data = id };
-        }
     }
 }
