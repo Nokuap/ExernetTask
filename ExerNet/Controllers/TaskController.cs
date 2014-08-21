@@ -92,10 +92,15 @@ namespace Exernet.Controllers
         private ICollection<Formula> GenerateFormulasForTaskModel(IEnumerable<string> formulasUrls)
         {
             List<Formula> formulas = new List<Formula>();
-            foreach(var formula in formulasUrls){
-                formulas.Add(new Formula() { FormulaURL = formula });
+            if (formulasUrls != null)
+            {
+                foreach (var formula in formulasUrls)
+                {
+                    formulas.Add(new Formula() { FormulaURL = formula });
+                }
+                return formulas;
             }
-            return formulas;
+            else return null;
         }
 
         private string[] parseForVideo(string[] listOfVideos)
