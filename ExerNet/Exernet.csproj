@@ -243,6 +243,8 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Scripts\add-more-pictures.js" />
     <Content Include="Scripts\ajax-loader.gif" />
+    <Content Include="Scripts\build-graph2.js" />
+    <Content Include="Scripts\build-graph.js" />
     <Content Include="Scripts\infinite-scrolling.js" />
     <Content Include="Scripts\jqPlot\changes.txt" />
     <Content Include="Scripts\jqPlot\copyright.txt" />

@@ -121,8 +121,11 @@ namespace Exernet.Models
         [Display(Name = "Formulas")]
         public string Formulas { get; set; }
 
-        [Display(Name = "Charts")]
-        public string Charts { get; set; }
+        public string Expression { get; set; }
+        public string To { get; set; }
+        public string From { get; set; }
+        public string Step { get; set; }
+
 
 
     }

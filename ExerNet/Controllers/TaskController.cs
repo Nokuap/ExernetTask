@@ -49,7 +49,14 @@ namespace Exernet.Controllers
             task.Text = model.Text;
             task.Tags = GenerateTagsForTaskModel(model.Tags);
             task.Answers = GenerateAnswersForTaskModel(model.Answers);
-            task.Videos = GenerateVideosForTaskModel(model.Videos);
+            if (model.Videos != null)
+            {
+                task.Videos = GenerateVideosForTaskModel(model.Videos);
+            }
+            if((model.Expression !=null) && (model.To !=null) && (model.From !=null) && (model.Step !=null))
+            {
+                task.Chart = createGraphic(model);
+            }
             task.Title = model.Title;
             task.Category = model.Category;
             task.Block = true;
@@ -70,6 +77,17 @@ namespace Exernet.Controllers
             return RedirectToAction("PostTask", new { id = GetId(model) });
         }
 
+        private Chart createGraphic(ExernetTaskViewModel model)
+        {
+            var chart = new Chart();
+            chart.Expression = model.Expression;
+            chart.From = model.From;
+            chart.To = model.To;
+            chart.Step = model.Step;
+
+            return chart;
+ 
+        }
         private string[] parseForVideo(string[] listOfVideos)
         {
             string pattern = @".+?/?v=";
@@ -166,8 +184,6 @@ namespace Exernet.Controllers
 
         public ActionResult PostTask(int id)
         {
-            
-            
             var task = new ExernetTask();
             task = db.Tasks.Find(id);
             return View(task);
@@ -404,7 +420,6 @@ namespace Exernet.Controllers
         private void ClearTask(ExernetTask tsk)
         {
             tsk.Answers.Clear();
-            tsk.Charts.Clear();
             tsk.Comments.Clear();
             tsk.Formulas.Clear();
             tsk.Images.Clear();
