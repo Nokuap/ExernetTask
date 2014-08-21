@@ -411,8 +411,8 @@
   <data name="GoToThisTask" xml:space="preserve">
     <value>Go to this task</value>
   </data>
-  <data name="q" xml:space="preserve">
-    <value />
+  <data name="AddFormula" xml:space="preserve">
+    <value>Add formula</value>
   </data>
   <data name="ShowAttachedImages" xml:space="preserve">
     <value>Show attached images</value>

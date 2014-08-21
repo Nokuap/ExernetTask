@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить формулу.
+        /// </summary>
+        public static string AddFormula {
+            get {
+                return ResourceManager.GetString("AddFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавьте изображения..
         /// </summary>
         public static string AddImages {
