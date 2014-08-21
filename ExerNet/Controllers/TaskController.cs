@@ -450,5 +450,9 @@ namespace Exernet.Controllers
             return View();
         }
 
+        public JsonResult AddFormula(string id)
+        {
+            return new JsonResult() { Data = id };
+        }
     }
 }

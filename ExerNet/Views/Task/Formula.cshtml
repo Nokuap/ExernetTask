@@ -28,8 +28,8 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Resource.Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">@Resources.Resource.AddFormula</h4>
             </div>
-            @using (Html.BeginForm("AddFormula", "Task", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-            { 
+            @*@using (Html.BeginForm("AddFormula", "Task", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {*@ 
                 <div>
                     <div class="modal-body">
                         <form class="form-group">
@@ -52,7 +52,7 @@
                         <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
                     </div>                   
                 </div>
-            }
+            @*}*@
         </div>
     </div>
 </div>
