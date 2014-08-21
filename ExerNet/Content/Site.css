@@ -192,3 +192,14 @@ p > img {
     max-width: 100%;
     height: auto;
 }
+.cross{
+    position: relative;
+    top:0;
+    right:0;
+    z-index:3;
+}
+
+.underneath{
+    position: relative;
+    z-index:1;
+}

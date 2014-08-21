@@ -57,6 +57,7 @@ namespace Exernet.Controllers
             {
                 task.Chart = createGraphic(model);
             }
+            task.Formulas = GenerateFormulasForTaskModel(model.Formulas);
             task.Title = model.Title;
             task.Category = model.Category;
             task.Block = true;
@@ -88,6 +89,15 @@ namespace Exernet.Controllers
             return chart;
  
         }
+        private ICollection<Formula> GenerateFormulasForTaskModel(IEnumerable<string> formulasUrls)
+        {
+            List<Formula> formulas = new List<Formula>();
+            foreach(var formula in formulasUrls){
+                formulas.Add(new Formula() { FormulaURL = formula });
+            }
+            return formulas;
+        }
+
         private string[] parseForVideo(string[] listOfVideos)
         {
             string pattern = @".+?/?v=";
@@ -465,9 +475,5 @@ namespace Exernet.Controllers
             return View();
         }
 
-        public JsonResult AddFormula(string id)
-        {
-            return new JsonResult() { Data = id };
-        }
     }
 }

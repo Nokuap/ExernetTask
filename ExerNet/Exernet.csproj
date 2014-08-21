@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Scripts\add-more-formulas.js" />
     <Content Include="Scripts\add-more-pictures.js" />
     <Content Include="Scripts\ajax-loader.gif" />
     <Content Include="Scripts\build-graph2.js" />
@@ -495,6 +496,7 @@
     <Content Include="Views\User\_AllUsersShort.cshtml" />
     <Content Include="Views\Task\_EmailBox.cshtml" />
     <Content Include="Views\Task\Graphic.cshtml" />
+    <Content Include="Views\Shared\_ShowFormulasWithZoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

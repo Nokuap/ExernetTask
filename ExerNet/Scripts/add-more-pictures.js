@@ -11,10 +11,9 @@ function addInput() {
 	input.className = "form-control";
 	var button = document.createElement("input");
 	button.type = "button";
-	button.value = "Remove";
 	button.className = "btn btn-info";
 	button.name = count;
-
+	button.value = 'X';
 	button.onclick = function del() {
 		var table = document.getElementById("inputs");
 		var index=this.name;	

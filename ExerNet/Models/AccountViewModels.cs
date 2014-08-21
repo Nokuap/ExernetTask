@@ -119,7 +119,7 @@ namespace Exernet.Models
         public IEnumerable<Image> Images { get; set; }
 
         [Display(Name = "Formulas")]
-        public string Formulas { get; set; }
+        public IEnumerable<string> Formulas { get; set; }
 
         public string Expression { get; set; }
         public string To { get; set; }
