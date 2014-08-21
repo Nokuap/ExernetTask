@@ -40,17 +40,24 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.ActionLink(Resources.Resource.Edit, "EditTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+                        @if (User.Identity.IsAuthenticated && Model.User.UserName.Equals(User.Identity.Name) || User.IsInRole("Administrator"))
+                        {
+                            @Html.ActionLink(Resources.Resource.Edit, "EditTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink("Block this task", "BlockTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+                        }
                     </div>
-                    <div class="col-md-6" align=right>
+                    @if (Model.Block)
+                    {
+                        <div class="col-md-6" align=right>
 
 
-                        @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
-                        <div id="SetLike">
-                            @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                            @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
+                            <div id="SetLike">
+                                @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                            </div>
+                            @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
                         </div>
-                        @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
-                    </div>
+                    }
                 </div>
                 <hr />
 
@@ -75,14 +82,13 @@
                 <div class="row form-group">
                     @Html.Partial("_ShowImagesWithZoom", Model.Images)
                 </div>
-                <hr>
-                <div class=" form-group">
-                    @Html.Action("CheckSolve", "Task", new { id = Model.Id })
-                </div>
-
-               
-
-                @using (Ajax.BeginForm("LeaveComment", new { id = Model.Id }, new AjaxOptions
+                @if (Model.Block)
+                {
+                    <hr>
+                    <div class=" form-group">
+                        @Html.Action("CheckSolve", "Task", new { id = Model.Id })
+                    </div>
+                using (Ajax.BeginForm("LeaveComment", new { id = Model.Id }, new AjaxOptions
                     {
                         UpdateTargetId = "comment",
                         InsertionMode = InsertionMode.InsertBefore
@@ -96,15 +102,15 @@
                             </div>
                             <button type="submit" value="Comment" class="btn btn-primary">@Resources.Resource.Submit</button>
                         </form>
-                        
-                        
+
+
                     </div>
                 }
-                
-                    @Html.Partial("_EmailBox", Model)
-                 
-                    
-               
+
+                @Html.Partial("_EmailBox", Model)
+                }
+
+
 
                 <hr>
                 <div class="media" id="comment">

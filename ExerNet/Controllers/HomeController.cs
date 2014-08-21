@@ -11,9 +11,11 @@ namespace Exernet.Controllers
     [Culture]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            var result = db.Tasks.OrderByDescending(obj => obj.Solutions.Count);
+            return View(result);
         }
 
         public ActionResult About()

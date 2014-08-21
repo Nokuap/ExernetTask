@@ -423,7 +423,6 @@ namespace Exernet.Controllers
                 mail.Subject = "Problem with your task" + db.Tasks.Find(id).Title;
                 mail.Body = mailBody;
                 mail.IsBodyHtml = true;
-
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.live.com";
                 smtp.Port = 25;
@@ -434,11 +433,22 @@ namespace Exernet.Controllers
                 smtp.Send(mail);
                 //return View("Index", _objModelMail);
                 return RedirectToAction("PostTask", new { id = id});
-           
         }
 
-     
 
+        public ActionResult BlockTask(int id)
+        {
+            var task = db.Tasks.Find(id);
+            task.Block = false;
+            db.Entry(task).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("PostTask", new { id = id});
+        }
+
+        public ActionResult Graphic()
+        {
+            return View();
+        }
 
     }
 }
