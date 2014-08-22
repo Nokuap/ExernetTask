@@ -224,5 +224,18 @@ namespace Exernet.Controllers
             return PartialView("~/Views/User/_AllUsersShort.cshtml",
                 users);
         }
+
+        public ActionResult ShowUsersForTask(int id)
+        {
+            var solutions = db.Tasks.Find(id).Solutions.Where(obj => obj.Correct == true).ToArray();
+            var users = new List<ApplicationUser>();
+            foreach (var sol in solutions)
+            {
+                users.Add(sol.User);
+            }
+            
+            return PartialView("~/Views/User/_AllUsersForTask.cshtml",
+                users);
+        }
     }
 }
