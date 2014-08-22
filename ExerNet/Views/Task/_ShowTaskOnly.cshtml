@@ -36,6 +36,7 @@
             <div class="col-md-12 ">
                 @Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(item.Text)))
             </div>
+            
             @if (@item.Images.Count != 0)
                 {
                     <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-target="#images_@item.Id@item.User.UserName">
@@ -48,7 +49,17 @@
                         </div>
                     </div>
                 }
-            @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
+            <div class="row">
+                <div class="col-md-4">
+                     
+                </div>
+                <div class="col-md-4">
+                    Number of likes:
+                </div>
+                <div class="col-md-4">
+                    @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
+                </div>
+            </div>
         </div>
     </div>
 </div>
