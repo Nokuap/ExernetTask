@@ -52,10 +52,16 @@
                         <div class="col-md-6" align=right>
                             @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
                             <div id="SetLike">
-                                @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                                    @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); } 
                             </div>
                             @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
                         </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6" align=right>
+                        <span class="glyphicon glyphicon-heart-empty"></span>@{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                            </div>
                     }
                 </div>
                 <hr />
@@ -122,7 +128,7 @@
 
 
 
-                <hr>
+                
                 <div class="media" id="comment">
                     <a class="pull-left" href="#">
                     </a>
@@ -138,7 +144,18 @@
                 <div id="GetTag">
                     @Html.Action("GetTag", "Task")
                 </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Users that solved this task</h3>
+                    </div>
+                    <div class="panel-body">
+                        @Html.Action("ShowUsersForTask", "User", Model.Id)
+                    </div>
+                </div>
+               
             </div>
+
+           
         </div>
     </div>
     

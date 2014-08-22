@@ -327,7 +327,6 @@ namespace Exernet.Controllers
         public ActionResult SolveTask(int id, string solveTry)
         {
             var solution = db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
-
             var answer = db.Tasks.Find(id).Answers.FirstOrDefault(obj => obj.Text.Equals(solveTry));
             if (solution == null)
             {
@@ -345,8 +344,21 @@ namespace Exernet.Controllers
                 solution.Correct = true;
                 db.Entry(db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()))).State = EntityState.Modified;
                 db.SaveChanges();
+                CountRating();
             }
             return PartialView(solution);
+        }
+
+        public void CountRating()
+        {
+            var users = db.Users.OrderBy(obj => obj.Solutions.Count);
+            int i = 1;
+            foreach(var user in users)
+            {
+                user.Rating = i++;
+                db.Entry(user).State = EntityState.Modified;
+            }
+            db.SaveChanges();
         }
 
         public ActionResult CheckSolve(int id)

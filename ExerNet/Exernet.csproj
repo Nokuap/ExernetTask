@@ -497,6 +497,7 @@
     <Content Include="Views\Task\_EmailBox.cshtml" />
     <Content Include="Views\Task\Graphic.cshtml" />
     <Content Include="Views\Shared\_ShowFormulasWithZoom.cshtml" />
+    <Content Include="Views\User\_AllUsersForTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
