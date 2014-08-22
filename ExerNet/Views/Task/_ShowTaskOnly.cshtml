@@ -56,7 +56,8 @@
                 <div class="col-md-4">
                     Number of likes:
                 </div>
-                @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
+                <div class="col-md-4">
+                    @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
                 </div>
             </div>
         </div>
