@@ -37,8 +37,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.About, "About", "Home")</li>
                     <li>@Html.ActionLink(@Resources.Resource.Contact, "Contact", "Home")</li>
+                    @if (User.Identity.IsAuthenticated) {
                     <li>@Html.ActionLink(@Resources.Resource.CreateTask, "CreateTask", "Task")</li>
-                    <li>@Html.ActionLink("Post", "PostTask/67", "Task")</li>
+                    }
+                    <li>@Html.ActionLink("Post", "PostTask/10", "Task")</li>
                 </ul>
                 @using (Html.BeginForm("FullTextSearching", "Task", FormMethod.Post, new { @class = "navbar-form navbar-left" }))
                 {
@@ -72,10 +74,8 @@
         @RenderBody()
         <footer class="footer">
             @*navbar-fixed-bottom btn btn-default btn-xs*@
-            <div class="container ">
                 <hr />
                 <p>&copy; @DateTime.Now.Year - @Resources.Resource.Developerx &amp; @Resources.Resource.Developery</p>
-            </div>
         </footer>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
