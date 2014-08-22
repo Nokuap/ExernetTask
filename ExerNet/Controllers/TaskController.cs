@@ -352,7 +352,7 @@ namespace Exernet.Controllers
 
         public void CountRating()
         {
-            var users = db.Users.OrderBy(obj => obj.Solutions.Count);
+            var users = db.Users.OrderByDescending(obj => obj.Solutions.Count);
             int i = 1;
             foreach(var user in users)
             {

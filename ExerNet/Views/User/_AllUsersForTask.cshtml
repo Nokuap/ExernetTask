@@ -1,7 +1,11 @@
 ﻿@using Exernet.Models
 @using Microsoft.AspNet.Identity
 @model IEnumerable<Exernet.Models.ApplicationUser>
-@foreach(var user in Model)
+<div class="row">
+    @foreach (var user in Model)
 {
-    <a href="http://localhost:54084/User/Details/@user.UserName"><img width="25" class="img-circle img-responsive" src="@user.ProfileFotoURL" /></a>
+    <div class="col-md-2">
+        <a href="http://localhost:54084/User/Details/@user.UserName"><img width="25" title=@user.UserName class="img-circle img-responsive" src="@user.ProfileFotoURL" /></a>
+    </div>
 }
+</div>

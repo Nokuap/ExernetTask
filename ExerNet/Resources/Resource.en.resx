@@ -435,4 +435,28 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="BlockThisTask" xml:space="preserve">
+    <value>Block this task</value>
+  </data>
+  <data name="CreateGraphic" xml:space="preserve">
+    <value>Create graphic</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Expression" xml:space="preserve">
+    <value>Expression</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="UsersThatSolved" xml:space="preserve">
+    <value>Users that solved this task</value>
+  </data>
 </root>

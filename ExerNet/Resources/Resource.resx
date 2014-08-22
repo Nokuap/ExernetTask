@@ -319,7 +319,7 @@
     <value>Решенные задачи</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Подвердить</value>
+    <value>Подтвердить</value>
   </data>
   <data name="SuccesfullyAuth" xml:space="preserve">
     <value>Вы успешно авторизировались с </value>
@@ -431,5 +431,29 @@
   </data>
   <data name="AddFormula" xml:space="preserve">
     <value>Добавить формулу</value>
+  </data>
+  <data name="BlockThisTask" xml:space="preserve">
+    <value>Заблокировать эту задачу</value>
+  </data>
+  <data name="CreateGraphic" xml:space="preserve">
+    <value>Создать график</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Отобразить</value>
+  </data>
+  <data name="Expression" xml:space="preserve">
+    <value>Выражение</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="UsersThatSolved" xml:space="preserve">
+    <value>Пользователи которые решили эту задачу</value>
   </data>
 </root>
