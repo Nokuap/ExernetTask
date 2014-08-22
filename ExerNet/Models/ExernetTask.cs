@@ -16,6 +16,7 @@ namespace Exernet.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public bool Block { get; set; }
+        public int Popularity { get; set; }
         public DateTime UploadDate { get; set; }
         public virtual Chart Chart { get; set; }
         public virtual ICollection<Comment> Comments{ get; set; }

@@ -294,6 +294,7 @@ namespace Exernet.Controllers
 
             }
             db.SaveChanges();
+            CountRating(id);
             return PartialView(db.Tasks.Find(id));
         }
 
@@ -350,6 +351,13 @@ namespace Exernet.Controllers
             return PartialView(solution);
         }
 
+        public void CountrPopularity(int id)
+        {
+            var task = db.Tasks.Find(id);
+            task.Popularity = task.Likes + task.Solutions.Count();
+            db.Entry(task).State = EntityState.Modified;
+            db.SaveChanges();
+        }
         public void CountRating()
         {
             var users = db.Users.OrderByDescending(obj => obj.Solutions.Count);
