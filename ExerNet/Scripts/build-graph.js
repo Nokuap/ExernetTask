@@ -1,5 +1,5 @@
-﻿$("#buildGraph").click(function (e) {
-    //$('canvas').remove();
+﻿
+$("#buildGraph").click(function (e) {
     e.preventDefault();
     var expr = Parser.parse($("#expression").val());
     var cosPoints = [];
@@ -12,3 +12,17 @@
         series: [{ showMarker: false }]
     }).replot();
 });
+
+$(".btn-xs").click(
+    function () {
+        $("#graphic").toggle(function () {
+
+            var cosPoints = [];
+            cosPoints.push([0, 0]);
+            var plot1 = $.jqplot('chart1', [cosPoints], {
+                series: [{ showMarker: false }]
+            }).replot();
+        });
+
+    });
+

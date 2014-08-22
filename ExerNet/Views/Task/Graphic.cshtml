@@ -1,6 +1,4 @@
 ﻿@model Exernet.Models.ExernetTaskViewModel
-<h4>Graphics</h4>
-
 <script src="~/Scripts/jqPlot/jquery.jqplot.js" type="text/javascript"></script>
 <script src="~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript"></script>
@@ -9,30 +7,31 @@
 
 <div class="row form-group">
     <div class="btn btn-default btn-xs" data-toggle="collapse" data-target="#graphic">
-        <div class="glyphicon glyphicon-stats"></div> Создать график
+        <div class="glyphicon glyphicon-stats"></div> @Resources.Resource.CreateGraphic
     </div>
 
     <div id="graphic" class="panel-collapse collapse">
         <div class="panel-body">
             <div class="col-md-6">
                 <form name="GraphSetting">
-                    <label> Expression</label>
-                    @Html.TextBoxFor(m => m.Expression, new { @class = "form-control", id = "expression", placeholder = "Expression?" })
+                    <label> @Resources.Resource.Expression</label>
+                    @Html.TextBoxFor(m => m.Expression, new { @class = "form-control", id = "expression", placeholder = @Resources.Resource.Expression+"?" })
                     <div class="row">
                         <div class="col-md-4">
-                            <label> From</label>
+                            <label> @Resources.Resource.From</label>
                             @Html.TextBoxFor(m => m.From, new { @class = "form-control", id = "from" })
                         </div>
                         <div class="col-md-4">
-                            <label> To</label>
+                            <label> @Resources.Resource.To</label>
                             @Html.TextBoxFor(m => m.To, new { @class = "form-control", id = "to" })
                         </div>
                         <div class="col-md-4">
-                            <label> Step:</label>@Html.TextBoxFor(m => m.Step, new { @class = "form-control", id = "step" })
+                            <label> @Resources.Resource.Step</label>
+                            @Html.TextBoxFor(m => m.Step, new { @class = "form-control", id = "step" })
                         </div>
                     </div>
                     <br />
-                    <button type="button" id="buildGraph" class="btn btn-primary">Отобразить</button>
+                    <button type="button" id="buildGraph" class="btn btn-primary">@Resources.Resource.Display</button>
                 </form>
             </div>
             <div class="col-md-6" id="chart1" style="height:200px;"></div>

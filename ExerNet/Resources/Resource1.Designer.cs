@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Заблокировать эту задачу.
+        /// </summary>
+        public static string BlockThisTask {
+            get {
+                return ResourceManager.GetString("BlockThisTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cоздал.
         /// </summary>
         public static string By {
@@ -286,6 +295,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать график.
+        /// </summary>
+        public static string CreateGraphic {
+            get {
+                return ResourceManager.GetString("CreateGraphic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создайте аккаунт.
         /// </summary>
         public static string CreateLocalLogin {
@@ -340,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отобразить.
+        /// </summary>
+        public static string Display {
+            get {
+                return ResourceManager.GetString("Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактировать.
         /// </summary>
         public static string Edit {
@@ -385,11 +412,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выражение.
+        /// </summary>
+        public static string Expression {
+            get {
+                return ResourceManager.GetString("Expression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Логин с внешнего ресурса был удален..
         /// </summary>
         public static string ExternalLoginRemoved {
             get {
                 return ResourceManager.GetString("ExternalLoginRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to От.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -799,7 +844,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подвердить.
+        ///   Looks up a localized string similar to Шаг.
+        /// </summary>
+        public static string Step {
+            get {
+                return ResourceManager.GetString("Step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтвердить.
         /// </summary>
         public static string Submit {
             get {
@@ -907,6 +961,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to До.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Попробуйте решить.
         /// </summary>
         public static string TryToSolve {
@@ -975,6 +1038,15 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи которые решили эту задачу.
+        /// </summary>
+        public static string UsersThatSolved {
+            get {
+                return ResourceManager.GetString("UsersThatSolved", resourceCulture);
             }
         }
         

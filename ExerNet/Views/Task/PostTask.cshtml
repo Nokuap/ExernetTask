@@ -44,7 +44,7 @@
                         @if (User.Identity.IsAuthenticated && Model.User.UserName.Equals(User.Identity.Name) || User.IsInRole("Administrator"))
                         {
                             @Html.ActionLink(Resources.Resource.Edit, "EditTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
-                            @Html.ActionLink("Block this task", "BlockTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink(Resources.Resource.BlockThisTask, "BlockTask", "Task", routeValues: new { id = Model.Id }, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
                         }
                     </div>
                     @if (Model.Block)
@@ -122,23 +122,16 @@
                             </form>
                         </div>
                     }
-
                     @Html.Partial("_EmailBox", Model)
                 }
-
-
-
-                
                 <div class="media" id="comment">
                     <a class="pull-left" href="#">
                     </a>
                 </div>
-
                 @foreach (var comment in Model.Comments.OrderByDescending(obj => obj.Date))
                 {
                     Html.RenderPartial("/Views/Task/Comment.cshtml", comment);
                 }
-
             </div>
             <div class="col-md-4">
                 <div id="GetTag">
@@ -146,26 +139,21 @@
                 </div>
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Users that solved this task</h3>
+                        <h3 class="panel-title">@Resources.Resource.UsersThatSolved</h3>
                     </div>
                     <div class="panel-body">
                         @Html.Action("ShowUsersForTask", "User", Model.Id)
                     </div>
                 </div>
-               
             </div>
-
-           
         </div>
     </div>
-    
-   
 </body>
 </html>
+
 <script src="~/Scripts/jqPlot/jquery.jqplot.js" type="text/javascript"></script>
 <script src="~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript"></script>
 <script src="~/Scripts/parser.js" type="text/javascript"></script>
-
 <script type="text/javascript" src="~/Scripts/build-graph2.js"></script>
 
