@@ -10,7 +10,6 @@ $(window).scroll(function ()
             if (element != null) {
                 $.post("http://localhost:54084/User/InfiniteScroll", { "BlockNumber": BlockNumber, "UserName": element.firstElementChild.id },
                 function (data) {
-
                     BlockNumber = BlockNumber + 1;
                     NoMoreData = data.NoMoreData;
                     $("#postswrapper").append(data.HTMLString);
