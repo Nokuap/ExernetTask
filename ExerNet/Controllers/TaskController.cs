@@ -58,6 +58,7 @@ namespace Exernet.Controllers
             {
                 task.Chart = createGraphic(model);
             }
+           
             task.Formulas = GenerateFormulasForTaskModel(model.Formulas);
             task.Title = model.Title;
             task.Category = model.Category;
@@ -263,38 +264,36 @@ namespace Exernet.Controllers
 
         public ActionResult SetLike(int id, bool likeState)
         {
-            var like = db.Tasks.Find(id).Likes.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
-            if (like == null)
+            if (!User.Identity.GetUserName().Equals(db.Tasks.Find(id).User.UserName))
             {
-                like = new Like();
-                like.Type = likeState;
-                like.UserId = User.Identity.GetUserId();
-                db.Tasks.Find(id).Likes.Add(like);
-                db.Entry(db.Tasks.Find(id).Likes.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()))).State = EntityState.Added;
-
-            }
-            else
-            {
-                if (like.Type == !likeState)
+                var like = db.Tasks.Find(id).Likes.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
+                if (like == null)
                 {
-                    like.Type = !like.Type;
-                    foreach (var item in db.Tasks.Find(id).Likes)
-                    {
-                        db.Entry(item).State = EntityState.Modified;
-                    }
+                    like = new Like();
+                    like.Type = likeState;
+                    like.UserId = User.Identity.GetUserId();
+                    db.Tasks.Find(id).Likes.Add(like);
+                    db.Entry(db.Tasks.Find(id).Likes.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()))).State = EntityState.Added;
+
                 }
                 else
                 {
-                    db.Tasks.Find(id).Likes.Remove(like);
-                    foreach (var item in db.Tasks.Find(id).Likes)
+                    if (like.Type == !likeState)
                     {
-                        db.Entry(item).State = EntityState.Deleted;
-                    }
-                }
+                        like.Type = !like.Type;
+                        db.Entry(like).State = EntityState.Modified;
 
+                    }
+                    else
+                    {
+                        db.Tasks.Find(id).Likes.Remove(like);
+                        db.Entry(like).State = EntityState.Deleted;
+                    }
+
+                }
+                db.SaveChanges();
+                CountPopularity(id);
             }
-            db.SaveChanges();
-            CountRating(id);
             return PartialView(db.Tasks.Find(id));
         }
 
@@ -347,14 +346,15 @@ namespace Exernet.Controllers
                 db.Entry(db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()))).State = EntityState.Modified;
                 db.SaveChanges();
                 CountRating();
+                CountPopularity(id);
             }
             return PartialView(solution);
         }
 
-        public void CountrPopularity(int id)
+        public void CountPopularity(int id)
         {
             var task = db.Tasks.Find(id);
-            task.Popularity = task.Likes + task.Solutions.Count();
+            task.Popularity = task.Likes.Count() + task.Solutions.Count();
             db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();
         }
@@ -534,9 +534,9 @@ namespace Exernet.Controllers
             return PartialView("_ListOfComments", comments);
         }
 
-        public ActionResult ViewTasksOrderedByRating() 
+        public ActionResult ViewTasksOrderedByPopularity() 
         {
-            return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.Solutions.Count).ToList());
+            return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.Popularity).ToList());
         }
         public ActionResult ViewTasksOrderedByUploadDate()
         {

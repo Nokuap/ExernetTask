@@ -5,14 +5,15 @@
     <div class="panel panel-default">
         <div class="panel-heading" style="word-break:break-all;">
             <div class="row">
-                <div class="col-md-8 pull-left">
+                <div class="col-md-7 pull-left">
                     @Html.ActionLink('"' + item.Title + '"', "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { title = String.Format("Task \"{0}\" view page", item.Title) })
                     @Resources.Resource.By
                     @Html.ActionLink(item.User.UserName, "Details", "User", routeValues: new { id = item.User.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg+" \"{0}\"", item.User.UserName) })
-                    . @Resources.Resource.PostedOn @item.UploadDate
+                    <span class="glyphicon glyphicon-star"></span> @item.User.Rating
+                    @Resources.Resource.PostedOn @item.UploadDate
                 </div>
 
-                <div class="col-md-4" >
+                <div class="col-md-5" >
                     <div class="row">
                         <div class="col-md-10" align="right">
                             @Resources.Resource.Tags
@@ -37,7 +38,7 @@
                 @Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(item.Text)))
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     @if (@item.Images.Count != 0)
                     {
                         <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-target="#images_@item.Id@item.User.UserName">
@@ -51,17 +52,18 @@
                         </div>
                     }
                 </div>
-                <div class="col-md-1">
-                     Rating: @item.Solutions.Count()
-                </div>
-                <div class="col-md-1">
-                    Likes:
+                <div class="col-md-4" align="right">
+                    <span class="glyphicon glyphicon-star-empty"></span> @item.Popularity
+
+                    <span class="glyphicon glyphicon-heart-empty"></span>
                     @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", item); }
-                </div>
-                <div class="col-md-1">
+
+
                     @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

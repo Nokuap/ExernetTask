@@ -20,7 +20,6 @@
     </div>
     <div class="col-md-4">
         <h2>@Model.UserName</h2>
-        <h4>e-mail: @Model.Email</h4>
         @if (@User.Identity.IsAuthenticated && @Model.UserName.Equals(@User.Identity.Name))
         {
         @Html.ActionLink(Resources.Resource.ChangePassword, "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
@@ -39,13 +38,13 @@
                                 <div class="modal-body">
                                     <form class="form-group">
                                         <fieldset>
-                                            <input type="file" name="fileUpload" accept="image/*" class="btn btn-default" title="Choose image" />
+                                            <input type="file" name="fileUpload" accept="image/*" class="btn btn-default" title=@Resources.Resource.ChooseImage />
                                         </fieldset>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <input type="submit" class="btn btn-success" value="Save picture" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Resource.Close</button>
+                                    <input type="submit" class="btn btn-success" value=@Resources.Resource.SavePicture />
                                 </div>
                             </div>
                         }

@@ -16,7 +16,7 @@
                 <div class="col-md-10">
                     <div class="col-md-7">
                         <h4>@Html.ActionLink(user.UserName, "Details", "User", routeValues: new { id = user.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg + " \"{0}\"", user.UserName) })</h4>
-                        e-mail: @user.Email
+                        <span class="glyphicon glyphicon-star"></span> @user.Rating
                         <h6>
                             @if (user.IsAdmin)
                             { @Resources.Resource.Administrator}

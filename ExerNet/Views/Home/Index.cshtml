@@ -5,25 +5,25 @@
 <h2>Exernet</h2>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 15px;">
-            <li class="active"><a href="#tasksByUpload" role="tab" data-toggle="tab">@Resources.Resource.Tasks</a></li>
-            <li class=""><a href="#tasksByPopularity" role="tab" data-toggle="tab">@Resources.Resource.Solutions</a></li>
-            <li class=""><a href="#usersOnHomepage" role="tab" data-toggle="tab">@Resources.Resource.Users</a></li>
+            <li class="active"><a href="#tasksByUpload" role="tab" data-toggle="tab">Новые задачи</a></li>
+            <li class=""><a href="#tasksByPopularity" role="tab" data-toggle="tab">Популярные задачи</a></li>
+            <li class=""><a href="#usersOnHomepage" role="tab" data-toggle="tab">Топ-10 пользователей</a></li>
         </ul>
         <div id="content" class="tab-content">
             <div class="tab-pane fade active in" id="tasksByUpload">
-                @{Html.RenderAction("ViewTasksOrderedByRating", "Task");}
+                @{Html.RenderAction("ViewTasksOrderedByUploadDate", "Task");}
             </div>
             <div class="tab-pane fade" id="tasksByPopularity">
-                @{Html.RenderAction("ViewTasksOrderedByUploadDate", "Task");}
+                @{Html.RenderAction("ViewTasksOrderedByPopularity", "Task");}
             </div>
             <div class="tab-pane fade" id="usersOnHomepage">
                 @{Html.RenderAction("ViewAllUsers", "User");}
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div id="GetTag">
             @Html.Action("GetTag", "Task")
         </div>

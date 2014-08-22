@@ -456,4 +456,7 @@
   <data name="UsersThatSolved" xml:space="preserve">
     <value>Пользователи которые решили эту задачу</value>
   </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Выберите изображение</value>
+  </data>
 </root>

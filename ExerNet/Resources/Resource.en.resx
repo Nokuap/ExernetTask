@@ -459,4 +459,7 @@
   <data name="UsersThatSolved" xml:space="preserve">
     <value>Users that solved this task</value>
   </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
 </root>

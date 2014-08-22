@@ -10,6 +10,7 @@
     <div class="media-body">
         <h4 class="media-heading">
             @Html.ActionLink(Model.User.UserName, "Details", "User", routeValues: new { id = Model.User.UserName }, htmlAttributes: new { title = String.Format("{0} account page", Model.User.UserName) })
+            <span class="glyphicon glyphicon-star"></span> @Model.User.Rating
             <small>@Model.Date</small>
         </h4>
         <div class="row well">

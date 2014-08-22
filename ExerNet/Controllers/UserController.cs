@@ -241,7 +241,7 @@ namespace Exernet.Controllers
         }
         public ActionResult ViewAllUsers()
         {
-            return PartialView("_AllUsersShort", db.Users.OrderByDescending(obj => obj.Rating).Take(10));
+            return PartialView("_AllUsersShort", db.Users.OrderBy(obj => obj.Rating).Take(10));
         }
     }
 }

@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите изображение.
+        /// </summary>
+        public static string ChooseImage {
+            get {
+                return ResourceManager.GetString("ChooseImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Язык.
         /// </summary>
         public static string ChooseLang {
