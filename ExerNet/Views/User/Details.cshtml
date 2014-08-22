@@ -25,7 +25,6 @@
         {
         @Html.ActionLink(Resources.Resource.ChangePassword, "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-xs" })
         <div class="btn btn-xs btn-primary" style="margin:10px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-picture"></span> @Resources.Resource.ChangeProfilePicture</div>
-        <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -87,13 +86,14 @@
                 <li class=""><a href="#users" role="tab" data-toggle="tab">@Resources.Resource.Users</a></li>
             }
         </ul>
+        
         <div id="content" class="tab-content">
             <div class="tab-pane fade active in" id="tasks">
                 <div id="postswrapper">
                     <div id="@Model.UserName"></div>
                         @if (@Model.Tasks.Count() > 0)
                         {
-                            Html.RenderAction("ViewListOfTasks", "User", new { Model = Model.Tasks });
+                            @Html.Action("ViewListOfTasks", "User", new { Model = Model.Tasks })
                         }
                         else
                         {

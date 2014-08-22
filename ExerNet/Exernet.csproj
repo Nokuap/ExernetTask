@@ -246,6 +246,7 @@
     <Content Include="Scripts\ajax-loader.gif" />
     <Content Include="Scripts\build-graph2.js" />
     <Content Include="Scripts\build-graph.js" />
+    <Content Include="Scripts\infinite-comments.js" />
     <Content Include="Scripts\infinite-scrolling.js" />
     <Content Include="Scripts\jqPlot\changes.txt" />
     <Content Include="Scripts\jqPlot\copyright.txt" />
@@ -498,6 +499,7 @@
     <Content Include="Views\Task\Graphic.cshtml" />
     <Content Include="Views\Shared\_ShowFormulasWithZoom.cshtml" />
     <Content Include="Views\User\_AllUsersForTask.cshtml" />
+    <Content Include="Views\Shared\_ListOfComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

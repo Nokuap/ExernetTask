@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Exernet.Models.Comment>
+
+@foreach (var item in Model)
+{
+    Html.RenderPartial("/Views/Task/Comment.cshtml", item);
+}

@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using Exernet.Code;
 using Exernet.Search;
 using System.Net.Mail;
+using System.IO;
 
 namespace Exernet.Controllers
 {
@@ -443,6 +444,19 @@ namespace Exernet.Controllers
             }
             else return null;
         }
+        [HttpPost]
+        public JsonResult DeleteComment(string id)
+        {
+            var coment = db.Comments.Find(Int32.Parse(id));
+            if (coment != null)
+            {
+                db.Comments.Remove(coment);
+                db.Entry(coment).State = EntityState.Deleted;
+                db.SaveChanges();
+                return new JsonResult() { Data = id };
+            }
+            else return null;
+        }
 
         private void ClearTask(ExernetTask tsk)
         {
@@ -492,5 +506,24 @@ namespace Exernet.Controllers
             return View();
         }
 
+        public ActionResult ViewListOfComments(IEnumerable<Comment> Model)
+        {
+            return PartialView("_ListOfComments", Model.OrderByDescending(obj=> obj.Date).Take(5));
+        }
+
+        public IEnumerable<Comment> GetFewCommentsForPartialView(string TaskId, int BlockNumber, int BlockSize)
+        {
+            var task = db.Tasks.Find(Int32.Parse(TaskId));
+            int startIndex = (BlockNumber - 1) * BlockSize;
+            return (from p in task.Comments.OrderByDescending(obj => obj.Date) select p).Skip(startIndex).Take(BlockSize).ToList();
+        }
+
+        [HttpPost]
+        public ActionResult InfiniteComments(string TaskId, int BlockNumber)
+        {
+            int BlockSize = 5;
+            var comments = GetFewCommentsForPartialView(TaskId, BlockNumber, BlockSize);
+            return PartialView("_ListOfComments", comments);
+        }
     }
 }
