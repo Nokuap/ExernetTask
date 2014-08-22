@@ -14,7 +14,7 @@
 
                 <div class="col-md-4" >
                     <div class="row">
-                        <div class="col-md-11" align="right">
+                        <div class="col-md-10" align="right">
                             @Resources.Resource.Tags
                             @foreach (var str in item.Tags.Select(obj => obj.Text))
                             {
@@ -23,7 +23,7 @@
                         </div>
                         @if(User.IsInRole("Administrator"))
                         { 
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <button type="button" class="close delete" id="@item.Id" name="delete"  data-toggle="tooltip" data-placement="top" title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
                         </div>
                         }

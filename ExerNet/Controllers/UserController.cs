@@ -11,6 +11,7 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
 using Exernet.Filters;
+using System.Data.Entity;
 
 namespace Exernet.Controllers
 {
@@ -216,13 +217,14 @@ namespace Exernet.Controllers
         public ActionResult ShowUsers() 
         {
             if (!User.IsInRole("Administrator")) return null;
-            var users = UserManager.Users.ToArray() ;
-            foreach (var user in users) 
+            foreach (var user in db.Users) 
             {
                 user.IsAdmin = UserManager.IsInRole(user.Id,"Administrator");
+                db.Entry(user).State = EntityState.Modified;
             }
-            return PartialView("~/Views/User/_AllUsersShort.cshtml",
-                users);
+            db.SaveChanges();
+            var users = UserManager.Users.ToArray();
+            return PartialView("~/Views/User/_AllUsersShort.cshtml",users);
         }
 
         public ActionResult ShowUsersForTask(int id)
@@ -236,6 +238,10 @@ namespace Exernet.Controllers
             
             return PartialView("~/Views/User/_AllUsersForTask.cshtml",
                 users);
+        }
+        public ActionResult ViewAllUsers()
+        {
+            return PartialView("_AllUsersShort", db.Users.OrderByDescending(obj => obj.Rating).Take(10));
         }
     }
 }
