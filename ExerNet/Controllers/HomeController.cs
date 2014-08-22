@@ -14,21 +14,19 @@ namespace Exernet.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var result = db.Tasks.OrderByDescending(obj => obj.Solutions.Count);
+            var result = db.Tasks.OrderByDescending(obj=>obj.UploadDate);
             return View(result);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
         [Authorize(Roles="Administrator")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
