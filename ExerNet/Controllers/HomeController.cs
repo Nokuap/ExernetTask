@@ -14,8 +14,7 @@ namespace Exernet.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var result = db.Tasks.OrderByDescending(obj=>obj.UploadDate);
-            return View(result);
+            return View();
         }
 
         public ActionResult About()

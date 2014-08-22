@@ -533,5 +533,14 @@ namespace Exernet.Controllers
             var comments = GetFewCommentsForPartialView(TaskId, BlockNumber, BlockSize);
             return PartialView("_ListOfComments", comments);
         }
+
+        public ActionResult ViewTasksOrderedByRating() 
+        {
+            return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.Solutions.Count).ToList());
+        }
+        public ActionResult ViewTasksOrderedByUploadDate()
+        {
+            return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.UploadDate).ToList());
+        }
     }
 }
