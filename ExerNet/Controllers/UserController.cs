@@ -250,24 +250,46 @@ namespace Exernet.Controllers
             var tasks = new List<ExernetTask>();
             foreach (var sol in solutions)
             {
-                tasks.Add(sol.Task);
+                if (sol.Task != null)
+                { 
+                    tasks.Add(sol.Task); 
+                }
             }
             ViewBag.UserName = model.UserName;
             return PartialView("~/Views/Task/_ShowTaskSolutions.cshtml", tasks);
         }
-        public ActionResult MakeHimUser(string username, string parentname)
-        {
-            var user = UserManager.FindByName(username);
-            user.Roles.Remove(new IdentityUserRole() { RoleId = "1",UserId=user.Id });
-            return RedirectToAction("Details","User", parentname);
-        }
+        //public ActionResult MakeHimUser(string username, string parentname)
+        //{
+        //    var user = UserManager.FindByName(username);
+        //    user.Roles.Remove(new IdentityUserRole() { RoleId = "1",UserId=user.Id });
+        //    return RedirectToAction("Details","User", parentname);
+        //}
 
-        public ActionResult MakeHimAdmin(string username, string parentname) 
+        //public ActionResult MakeHimAdmin(string username, string parentname) 
+        //{
+        //    var user = UserManager.FindByName(username);
+        //    user.Roles.Add(new IdentityUserRole() { RoleId = "1", UserId = user.Id });
+        //    user.IsAdmin = true;
+        //    return RedirectToAction("Details", "User", parentname);
+        //}
+
+        public ActionResult ChangeRole(string userId) 
         {
-            var user = UserManager.FindByName(username);
-            user.Roles.Add(new IdentityUserRole() { RoleId = "1", UserId = user.Id });
-            user.IsAdmin = true;
-            return RedirectToAction("Details", "User", parentname);
+            if (UserManager.IsInRole(userId, "Administrator"))
+            {
+                UserManager.RemoveFromRole(userId, "Administrator");
+                db.Users.Find(userId).IsAdmin = false;
+                db.Entry(db.Users.Find(userId)).State = EntityState.Modified;
+            }
+            else
+            {
+                UserManager.AddToRole(userId, "Administrator");
+                db.Users.Find(userId).IsAdmin = true;
+                db.Entry(db.Users.Find(userId)).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+
+            return PartialView("~/Views/User/ChangeRole/_UserRole.cshtml", db.Users.Find(userId));
         }
     }
 }
