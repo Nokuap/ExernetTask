@@ -1,0 +1,6 @@
+﻿@model String
+<div id="userInfo_@Model">
+    <h6>@Resources.Resource.User</h6>
+      @Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimAdmin", "User", new { id = @Model }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimAdmin})
+    @*<div class="btn btn-info btn-xs " onclick="changeRoleToAdmin('@Model')" title="@Resources.Resource.MakeHimAdmin">@Resources.Resource.ChangeRole</div>*@
+</div>

@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Изменить роль.
+        /// </summary>
+        public static string ChangeRole {
+            get {
+                return ResourceManager.GetString("ChangeRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выберите изображение.
         /// </summary>
         public static string ChooseImage {
@@ -525,6 +534,24 @@ namespace Resources {
         public static string LogOff {
             get {
                 return ResourceManager.GetString("LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сделать администратором.
+        /// </summary>
+        public static string MakeHimAdmin {
+            get {
+                return ResourceManager.GetString("MakeHimAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить из администраторов.
+        /// </summary>
+        public static string MakeHimUser {
+            get {
+                return ResourceManager.GetString("MakeHimUser", resourceCulture);
             }
         }
         

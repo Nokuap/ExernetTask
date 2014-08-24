@@ -243,5 +243,20 @@ namespace Exernet.Controllers
         {
             return PartialView("_AllUsersShort", db.Users.OrderBy(obj => obj.Rating).Take(10));
         }
+
+        public ActionResult MakeHimUser(string username, string parentname)
+        {
+            var user = UserManager.FindByName(username);
+            user.Roles.Remove(new IdentityUserRole() { RoleId = "1",UserId=user.Id });
+            return RedirectToAction("Details","User", parentname);
+        }
+
+        public ActionResult MakeHimAdmin(string username, string parentname) 
+        {
+            var user = UserManager.FindByName(username);
+            user.Roles.Add(new IdentityUserRole() { RoleId = "1", UserId = user.Id });
+            user.IsAdmin = true;
+            return RedirectToAction("Details", "User", parentname);
+        }
     }
 }

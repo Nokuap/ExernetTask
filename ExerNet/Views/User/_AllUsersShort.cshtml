@@ -17,12 +17,23 @@
                     <div class="col-md-7">
                         <h4>@Html.ActionLink(user.UserName, "Details", "User", routeValues: new { id = user.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg + " \"{0}\"", user.UserName) })</h4>
                         <span class="glyphicon glyphicon-star"></span> @user.Rating
-                        <h6>
+                        <div id="changeRole_@user.UserName">
                             @if (user.IsAdmin)
-                            { @Resources.Resource.Administrator}
+                            {
+                                <h6>@Resources.Resource.Administrator</h6>
+                                //Html.RenderAction("MakeHimUser", "User", @user.UserName);
+                                //@Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimUser", "User", new { username = @user.UserName,parentname=User.Identity.Name }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimUser})
+                                //Html.RenderPartial("ChangeRole/_ChangeRoleForUser", @user.UserName);
+                            }
                             else
-                            { @Resources.Resource.User}
-                        </h6>
+                                if(User.Identity.IsAuthenticated)
+                            {
+                                <h6>@Resources.Resource.User</h6>
+                                //Html.RenderAction("MakeHimAdmin", "User", @user.UserName);
+                                //@Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimAdmin", "User", new { username = @user.UserName,parentname=User.Identity.Name }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimAdmin})
+                                //Html.RenderPartial("ChangeRole/_ChangeRoleForAdmin", @user.UserName);
+                            }
+                        </div>
                         @if (user.LockoutEnabled)
                         {
                             <p>@Resources.Resource.UserBlocked @user.LockoutEndDateUtc</p>
@@ -38,9 +49,9 @@
                     <div class="col-md-10" align="right">
                     </div>
                     <div class="col-md-2">
-                        @if(user.UserName!=User.Identity.Name)
+                        @if (user.UserName != User.Identity.Name)
                         {
-                            <button type="button" class="close deleteuser" id="@user.UserName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+                            <button type="button" class="close" onclick="deleting('@user.UserName')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
                         }
                     </div>
                 </div>
@@ -50,13 +61,12 @@
 }
 
 <script type="text/javascript">
-    $(".deleteuser").click(function () {
-        var id = $(this).attr("id");
+    function deleting(username){
         $.ajax({
             url: "http://localhost:54084/User/Delete",
             dataType: "json",
             type: "POST",
-            data: { id: id },
+            data: { id: username },
             success: function (data) {
                 $("#user_" + data).remove();
             },
@@ -64,5 +74,41 @@
                 alert("cannot delete this user");
             }
         });
-    });
+    }
+    function changeRoleToAdmin(username) {
+        $.ajax({
+            url: "http://localhost:54084/User/MakeHimAdmin",
+            dataType: "json",
+            type: "POST",
+            data: { id: username },
+            success: function (data) {
+                $("#userInfo_" + username).remove();
+                document.getElementById("changeRole_" + username).innerHTML = data;
+            },
+            error: function (e) {
+                alert("cannot change user role");
+            }
+        }).done(function (data) {
+            $("#adminInfo_" + username).remove();
+            document.getElementById("changeRole_" + username).innerHTML = data;
+        });
+    }
+    function changeRoleToUser(username) {
+        $.ajax({
+            url: "http://localhost:54084/User/MakeHimUser",
+            dataType: "json",
+            type: "POST",
+            data: { id: username },
+            success: function (data) {
+                $("#adminInfo_" + username).remove();
+                document.getElementById("changeRole_" + username).innerHTML = data;
+            },
+            error: function (e) {
+                alert("cannot change user role");
+            }
+        }).done(function (data) {
+            $("#adminInfo_" + username).remove();
+            document.getElementById("changeRole_" + username).innerHTML = data;
+        });
+    }
 </script>
