@@ -139,7 +139,7 @@
     <value>Требуется хотя бы один ответ</value>
   </data>
   <data name="AnswersPlaceholder" xml:space="preserve">
-    <value>Ответы?</value>
+    <value>Ответы</value>
   </data>
   <data name="AssociationForm" xml:space="preserve">
     <value>Форма регистрации</value>
@@ -328,7 +328,7 @@
     <value>Требуется хотя бы один тэг</value>
   </data>
   <data name="TagsPlaceholder" xml:space="preserve">
-    <value>Тэги?</value>
+    <value>Тэги</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>Задачи</value>
@@ -349,7 +349,7 @@
     <value>Светлая</value>
   </data>
   <data name="TitlePlaceholder" xml:space="preserve">
-    <value>Название?</value>
+    <value>Название</value>
   </data>
   <data name="TryToSolve" xml:space="preserve">
     <value>Попробуйте решить</value>
@@ -458,5 +458,23 @@
   </data>
   <data name="ChooseImage" xml:space="preserve">
     <value>Выберите изображение</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Новые задачи</value>
+  </data>
+  <data name="PopularTasks" xml:space="preserve">
+    <value>Популярные задачи</value>
+  </data>
+  <data name="Top10" xml:space="preserve">
+    <value>Топ-10 пользователей</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Лайки</value>
+  </data>
+  <data name="Popularity" xml:space="preserve">
+    <value>Популярность</value>
+  </data>
+  <data name="VideoLink" xml:space="preserve">
+    <value>Ссылка на видео с Youtube</value>
   </data>
 </root>

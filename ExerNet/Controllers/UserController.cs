@@ -243,5 +243,17 @@ namespace Exernet.Controllers
         {
             return PartialView("_AllUsersShort", db.Users.OrderBy(obj => obj.Rating).Take(10));
         }
+
+        public ActionResult ViewListOfSolutions(ShowUserViewModel model)
+        {
+            var solutions = model.Solutions.Where(obj => obj.Id > 0);
+            var tasks = new List<ExernetTask>();
+            foreach (var sol in solutions)
+            {
+                tasks.Add(sol.Task);
+            }
+            ViewBag.UserName = model.UserName;
+            return PartialView("~/Views/Task/_ShowTaskSolutions.cshtml", tasks);
+        }
     }
 }

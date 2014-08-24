@@ -103,12 +103,8 @@
             </div>
             <div class="tab-pane fade" id="solutions">
                 @if (@Model.Solutions.Count() > 0) 
-                { 
-                    foreach (var p in @Model.Solutions)
-                    {
-                        <div class="item">
-                        </div>
-                    }
+                {
+                    @Html.Action("ViewListOfSolutions", "User", new { Model = Model})
                 }
                 else
                 {

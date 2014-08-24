@@ -244,6 +244,7 @@
     <Content Include="Scripts\add-more-formulas.js" />
     <Content Include="Scripts\add-more-pictures.js" />
     <Content Include="Scripts\ajax-loader.gif" />
+    <Content Include="Scripts\bootstrap-tooltips.js" />
     <Content Include="Scripts\build-graph2.js" />
     <Content Include="Scripts\build-graph.js" />
     <Content Include="Scripts\infinite-comments.js" />
@@ -500,6 +501,7 @@
     <Content Include="Views\Shared\_ShowFormulasWithZoom.cshtml" />
     <Content Include="Views\User\_AllUsersForTask.cshtml" />
     <Content Include="Views\Shared\_ListOfComments.cshtml" />
+    <Content Include="Views\Task\_ShowTaskSolutions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

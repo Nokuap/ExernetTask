@@ -142,7 +142,7 @@
     <value>Answer field is required</value>
   </data>
   <data name="AnswersPlaceholder" xml:space="preserve">
-    <value>Answers?</value>
+    <value>Answers</value>
   </data>
   <data name="AssociationForm" xml:space="preserve">
     <value>Register form.</value>
@@ -343,7 +343,7 @@
     <value>Tag is required</value>
   </data>
   <data name="TagsPlaceholder" xml:space="preserve">
-    <value>Tags?</value>
+    <value>Tags</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>Tasks</value>
@@ -367,7 +367,7 @@
     <value>Light</value>
   </data>
   <data name="TitlePlaceholder" xml:space="preserve">
-    <value>Title?</value>
+    <value>Title</value>
   </data>
   <data name="TryToSolve" xml:space="preserve">
     <value>Try to solve</value>
@@ -461,5 +461,23 @@
   </data>
   <data name="ChooseImage" xml:space="preserve">
     <value>Choose image</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>New tasks</value>
+  </data>
+  <data name="PopularTasks" xml:space="preserve">
+    <value>Popular tasks</value>
+  </data>
+  <data name="Top10" xml:space="preserve">
+    <value>Top-10 users</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Likes</value>
+  </data>
+  <data name="Popularity" xml:space="preserve">
+    <value>Popularity</value>
+  </data>
+  <data name="VideoLink" xml:space="preserve">
+    <value>Link on video from Youtube</value>
   </data>
 </root>

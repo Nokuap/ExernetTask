@@ -17,6 +17,7 @@ using Exernet.Search;
 using System.Net.Mail;
 using System.IO;
 
+
 namespace Exernet.Controllers
 {
     [Culture]
@@ -54,11 +55,11 @@ namespace Exernet.Controllers
             {
                 task.Videos = GenerateVideosForTaskModel(model.Videos);
             }
-            if((model.Expression !=null) && (model.To !=null) && (model.From !=null) && (model.Step !=null))
+            if ((model.Expression != null) && (model.To != null) && (model.From != null) && (model.Step != null))
             {
                 task.Chart = createGraphic(model);
             }
-           
+
             task.Formulas = GenerateFormulasForTaskModel(model.Formulas);
             task.Title = model.Title;
             task.Category = model.Category;
@@ -89,7 +90,7 @@ namespace Exernet.Controllers
             chart.Step = model.Step;
 
             return chart;
- 
+
         }
         private ICollection<Formula> GenerateFormulasForTaskModel(IEnumerable<string> formulasUrls)
         {
@@ -201,24 +202,47 @@ namespace Exernet.Controllers
 
         public ActionResult PostTask(int id)
         {
+
             var task = new ExernetTask();
             task = db.Tasks.Find(id);
-            return View(task);
+            if (task != null)
+            {
+                return View(task);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult EditTask(int id)
         {
-            var model = db.Tasks.Find(id);
-            ExernetTaskViewModel task = new ExernetTaskViewModel();
 
-            task.Text = model.Text;
-            task.Tags = GenerateStringTagsForTaskModel(model.Tags);
-            task.Answers = GenerateStringAnswersForTaskModel(model.Answers);
-            task.Videos = GenerateStringVideosForTaskModel(model.Videos);
-            task.Title = model.Title;
-            task.Category = model.Category;
-            task.Id = id;
-            return View(task);
+            var model = db.Tasks.Find(id);
+            if (model.User.UserName.Equals(User.Identity.GetUserName()))
+            {
+                ExernetTaskViewModel task = new ExernetTaskViewModel();
+
+                task.Text = model.Text;
+                task.Tags = GenerateStringTagsForTaskModel(model.Tags);
+                task.Answers = GenerateStringAnswersForTaskModel(model.Answers);
+                task.Videos = GenerateStringVideosForTaskModel(model.Videos);
+                task.Title = model.Title;
+                if (model.Chart != null)
+                {
+                    task.Expression = model.Chart.Expression;
+                    task.From = model.Chart.From;
+                    task.To = model.Chart.To;
+                    task.Step = model.Chart.Step;
+                }
+                task.Category = model.Category;
+                task.Id = id;
+                return View(task);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         private static string GenerateStringVideosForTaskModel(ICollection<Video> collection)
@@ -362,7 +386,7 @@ namespace Exernet.Controllers
         {
             var users = db.Users.OrderByDescending(obj => obj.Solutions.Count);
             int i = 1;
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.Rating = i++;
                 db.Entry(user).State = EntityState.Modified;
@@ -398,11 +422,11 @@ namespace Exernet.Controllers
             db.SaveChanges();
             var c = db.Comments.Include("User").FirstOrDefault(obj => obj.Id == comment.Id);
 
-            
+
             return PartialView("Comment", c);
         }
 
-        public ActionResult SaveFormula(string formulaURL) 
+        public ActionResult SaveFormula(string formulaURL)
         {
             return PartialView("Formula");
         }
@@ -413,7 +437,7 @@ namespace Exernet.Controllers
             return null;
         }
 
-        public ActionResult FullTextSearching(string searchText) 
+        public ActionResult FullTextSearching(string searchText)
         {
             LuceneSearch.ClearLuceneIndex();
             LuceneSearch.AddUpdateLuceneIndex(db.Tasks.Where(obj => obj.Id > 0));
@@ -481,22 +505,22 @@ namespace Exernet.Controllers
         [HttpPost]
         public ActionResult EmailSend(String mailBody, int id)
         {
-                MailMessage mail = new MailMessage();
-                mail.To.Add(db.Tasks.Find(id).User.Email);
-                mail.From = new MailAddress("noreply@gmail.com",User.Identity.GetUserName());
-                mail.Subject = "Problem with your task" + db.Tasks.Find(id).Title;
-                mail.Body = mailBody;
-                mail.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.live.com";
-                smtp.Port = 25;
-                smtp.UseDefaultCredentials = false;
-                smtp.EnableSsl = true;
-                smtp.Credentials = new System.Net.NetworkCredential
-                ("Nokuap@outlook.com", "298746773Pauk");// Enter seders User name and password
-                smtp.Send(mail);
-                //return View("Index", _objModelMail);
-                return RedirectToAction("PostTask", new { id = id});
+            MailMessage mail = new MailMessage();
+            mail.To.Add(db.Tasks.Find(id).User.Email);
+            mail.From = new MailAddress("noreply@gmail.com", User.Identity.GetUserName());
+            mail.Subject = "Problem with your task" + db.Tasks.Find(id).Title;
+            mail.Body = mailBody;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.live.com";
+            smtp.Port = 25;
+            smtp.UseDefaultCredentials = false;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new System.Net.NetworkCredential
+            ("Nokuap@outlook.com", "298746773Pauk");// Enter seders User name and password
+            smtp.Send(mail);
+            //return View("Index", _objModelMail);
+            return RedirectToAction("PostTask", new { id = id });
         }
 
 
@@ -506,7 +530,7 @@ namespace Exernet.Controllers
             task.Block = false;
             db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("PostTask", new { id = id});
+            return RedirectToAction("PostTask", new { id = id });
         }
 
         public ActionResult Graphic()
@@ -516,7 +540,7 @@ namespace Exernet.Controllers
 
         public ActionResult ViewListOfComments(IEnumerable<Comment> Model)
         {
-            return PartialView("_ListOfComments", Model.OrderByDescending(obj=> obj.Date).Take(5));
+            return PartialView("_ListOfComments", Model.OrderByDescending(obj => obj.Date).Take(5));
         }
 
         public IEnumerable<Comment> GetFewCommentsForPartialView(string TaskId, int BlockNumber, int BlockSize)
@@ -534,7 +558,7 @@ namespace Exernet.Controllers
             return PartialView("_ListOfComments", comments);
         }
 
-        public ActionResult ViewTasksOrderedByPopularity() 
+        public ActionResult ViewTasksOrderedByPopularity()
         {
             return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.Popularity).ToList());
         }

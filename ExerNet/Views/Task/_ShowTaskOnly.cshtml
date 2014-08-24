@@ -53,9 +53,9 @@
                     }
                 </div>
                 <div class="col-md-4" align="right">
-                    <span class="glyphicon glyphicon-star-empty"></span> @item.Popularity
+                    <span class="glyphicon glyphicon-star-empty" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Popularity></span> @item.Popularity
 
-                    <span class="glyphicon glyphicon-heart-empty"></span>
+                    <span class="glyphicon glyphicon-heart-empty" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Likes></span>
                     @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", item); }
 
 

@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ответы?.
+        ///   Looks up a localized string similar to Ответы.
         /// </summary>
         public static string AnswersPlaceholder {
             get {
@@ -493,6 +493,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Лайки.
+        /// </summary>
+        public static string Likes {
+            get {
+                return ResourceManager.GetString("Likes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вы загружены как.
         /// </summary>
         public static string LoggedAs {
@@ -610,6 +619,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новые задачи.
+        /// </summary>
+        public static string NewTasks {
+            get {
+                return ResourceManager.GetString("NewTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вход через другие сервисы не настроен..
         /// </summary>
         public static string NoExternalAuth {
@@ -714,6 +732,24 @@ namespace Resources {
         public static string PleaseEnterEmail {
             get {
                 return ResourceManager.GetString("PleaseEnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Популярность.
+        /// </summary>
+        public static string Popularity {
+            get {
+                return ResourceManager.GetString("Popularity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Популярные задачи.
+        /// </summary>
+        public static string PopularTasks {
+            get {
+                return ResourceManager.GetString("PopularTasks", resourceCulture);
             }
         }
         
@@ -898,7 +934,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тэги?.
+        ///   Looks up a localized string similar to Тэги.
         /// </summary>
         public static string TagsPlaceholder {
             get {
@@ -961,7 +997,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название?.
+        ///   Looks up a localized string similar to Название.
         /// </summary>
         public static string TitlePlaceholder {
             get {
@@ -975,6 +1011,15 @@ namespace Resources {
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Топ-10 пользователей.
+        /// </summary>
+        public static string Top10 {
+            get {
+                return ResourceManager.GetString("Top10", resourceCulture);
             }
         }
         
@@ -1056,6 +1101,15 @@ namespace Resources {
         public static string UsersThatSolved {
             get {
                 return ResourceManager.GetString("UsersThatSolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ссылка на видео с Youtube.
+        /// </summary>
+        public static string VideoLink {
+            get {
+                return ResourceManager.GetString("VideoLink", resourceCulture);
             }
         }
         
