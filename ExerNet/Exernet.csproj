@@ -506,6 +506,7 @@
     <Content Include="Views\User\ChangeRole\_ChangeRoleForUser.cshtml" />
     <Content Include="Views\Shared\_Image.cshtml" />
     <Content Include="Views\Shared\_ShowImagesForEdit.cshtml" />
+    <Content Include="Views\User\ChangeRole\_UserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

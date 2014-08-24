@@ -1,0 +1,16 @@
+﻿@model Exernet.Models.ApplicationUser
+@if (Model.IsAdmin)
+{
+    <h6>@Resources.Resource.Administrator</h6>
+    //Html.RenderAction("MakeHimUser", "User", @user.UserName);
+    //@Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimUser", "User", new { username = @user.UserName,parentname=User.Identity.Name }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimUser})
+    //Html.RenderPartial("ChangeRole/_ChangeRoleForUser", @user.UserName);
+}
+else
+    if (User.Identity.IsAuthenticated)
+    {
+        <h6>@Resources.Resource.User</h6>
+        //Html.RenderAction("MakeHimAdmin", "User", @user.UserName);
+        //@Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimAdmin", "User", new { username = @user.UserName,parentname=User.Identity.Name }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimAdmin})
+        //Html.RenderPartial("ChangeRole/_ChangeRoleForAdmin", @user.UserName);
+    }
