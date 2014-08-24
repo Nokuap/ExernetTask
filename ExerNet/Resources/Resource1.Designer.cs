@@ -448,6 +448,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Формула из задачи.
+        /// </summary>
+        public static string FormulaFromTask {
+            get {
+                return ResourceManager.GetString("FormulaFromTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to От.
         /// </summary>
         public static string From {

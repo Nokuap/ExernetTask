@@ -471,4 +471,7 @@
   <data name="ChangeRole" xml:space="preserve">
     <value>Change role</value>
   </data>
+  <data name="FormulaFromTask" xml:space="preserve">
+    <value>Formula from task</value>
+  </data>
 </root>

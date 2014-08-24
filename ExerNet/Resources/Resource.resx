@@ -468,4 +468,7 @@
   <data name="ChangeRole" xml:space="preserve">
     <value>Изменить роль</value>
   </data>
+  <data name="FormulaFromTask" xml:space="preserve">
+    <value>Формула из задачи</value>
+  </data>
 </root>
