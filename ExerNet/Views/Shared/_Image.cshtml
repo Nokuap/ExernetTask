@@ -1,0 +1,28 @@
+﻿@model Exernet.Models.Image
+
+<div class="col-md-4">
+    <div data-toggle="modal" data-target="#modalImage_@Model.Id">
+        <img src="@Model.ImageURL" class="img-thumbnail" />
+    </div>
+</div>
+<div class="modal fade" id="modalImage_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Resource.Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">@Resources.Resource.ImageFromTask "@Model.Task.Title"</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-group">
+                    <fieldset>
+                        <div class="col-md-12">
+                            <center>
+                                <img src="@Model.ImageURL" class="img-thumbnail" data-target="#modalImage_@Model.Id" />
+                            </center>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

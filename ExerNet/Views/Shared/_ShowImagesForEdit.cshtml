@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Exernet.Models.Image>
+
+@foreach (var im in @Model)
+{
+    <div id="image_@im.Id">
+>
+        <div class="row">
+            <div class="col-md-10">
+                @Html.Partial("_Image", im)
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="close delete" onclick="deleteImage('@im.Id')" name="delete" data-toggle="tooltip" data-placement="top" title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+            </div>
+        </div>
+    </div>
+}
+<div class="form-group">
+    <label for="inputs" class="control-label">@Resources.Resource.AddImages</label>
+</div>
+@{<table id="inputs"></table> }
+<div class="form-group">
+    <input type="button" class="btn btn-default btn-xs" value="@Resources.Resource.AddMoreImage" onclick="addInput()">
+</div>
+
+<script src="~/Scripts/add-more-pictures.js"></script>
+<script type="text/javascript">
+    function deleteImage(imageId) {
+        $.ajax({
+            url: "http://localhost:54084/Task/DeleteImage",
+            dataType: "json",
+            type: "POST",
+            data: { ImageId: imageId },
+            success: function (data) {
+                $("#image_" + data).remove();
+            },
+            error: function (e) {
+                alert("cannot delete this image");
+            }
+        });
+    }
+</script>

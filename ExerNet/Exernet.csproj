@@ -202,10 +202,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Code\MarkDownEba.cs" />
-    <Compile Include="Migrations\201408231224038_pup.cs" />
-    <Compile Include="Migrations\201408231224038_pup.Designer.cs">
-      <DependentUpon>201408231224038_pup.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -508,6 +504,8 @@
     <Content Include="Views\Task\_ShowTaskSolutions.cshtml" />
     <Content Include="Views\User\ChangeRole\_ChangeRoleForAdmin.cshtml" />
     <Content Include="Views\User\ChangeRole\_ChangeRoleForUser.cshtml" />
+    <Content Include="Views\Shared\_Image.cshtml" />
+    <Content Include="Views\Shared\_ShowImagesForEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -521,9 +519,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408231224038_pup.resx">
-      <DependentUpon>201408231224038_pup.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Category.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Category.en.Designer.cs</LastGenOutput>

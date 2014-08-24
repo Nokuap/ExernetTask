@@ -130,14 +130,7 @@
                     </a>
                 </div>
                 <div id="commentslist">
-                    @if (@Model.Comments.Count() > 0)
-                    {
-                        Html.RenderAction("ViewListOfComments", "Task", new { Model = Model.Comments });
-                    }
-                    else
-                    {
-                        <p>@Html.Raw(Resources.Resource.NoYourTasks)</p>
-                    }
+                        @{Html.RenderAction("ViewListOfComments", "Task", new { Model = Model.Comments });}
                     <div id="loadmoreajaxloader" style="display:none;"><center><img src="~/Scripts/ajax-loader.gif" /></center></div>
                 </div>
             </div>

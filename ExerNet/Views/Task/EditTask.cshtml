@@ -48,8 +48,6 @@
                             }, "value", "text", Resources.Category.WithoutCategory), new { @class = "form-control" })
                         </div>
                     </div>
-
-
                 </div>
 
 
@@ -89,6 +87,12 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.Videos, new { @class = "form-control", placeholder = "Videos links like http://www.youtube.com/embed/WIH79zPH7L0, http://www.youtube.com/embed/WIH79zPH9k0 ?" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("_ShowImagesForEdit", Model.Images)
                     </div>
                 </div>
 

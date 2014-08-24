@@ -78,9 +78,6 @@
             data: { id: id },
             success: function (data) {
                 $("#element_" + data).remove();
-            },
-            error: function (e) {
-                alert("cannot delete this task");
             }
         });
     });

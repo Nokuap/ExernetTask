@@ -40,7 +40,7 @@ namespace Exernet.Controllers
         [HttpPost]
         public ActionResult CreateTask(ExernetTaskViewModel model, IEnumerable<HttpPostedFileBase> Images, string returnUrl)
         {
-            ExernetTask task = new ExernetTask(); ;
+            ExernetTask task = new ExernetTask();
             if (model.Id != 0)
             {
                 task = db.Tasks.Where(a => a.Id.Equals(model.Id)).First();
@@ -68,7 +68,11 @@ namespace Exernet.Controllers
             task.UploadDate = DateTime.Now;
             if (model.Id == 0)
             {
-                task.Images = UploadPicturesOnCloudinary(Images);
+                if (task.Images != null)
+                { 
+                    task.Images.Concat(UploadPicturesOnCloudinary(Images)); 
+                }
+                else task.Images = UploadPicturesOnCloudinary(Images).ToList();
                 db.Tasks.Add(task);
                 db.Entry(task).State = EntityState.Added;
             }
@@ -228,6 +232,7 @@ namespace Exernet.Controllers
                 task.Answers = GenerateStringAnswersForTaskModel(model.Answers);
                 task.Videos = GenerateStringVideosForTaskModel(model.Videos);
                 task.Title = model.Title;
+                task.Images = model.Images;
                 if (model.Chart != null)
                 {
                     task.Expression = model.Chart.Expression;
@@ -327,7 +332,7 @@ namespace Exernet.Controllers
             return PartialView(listOfTags);
         }
 
-        private List<Image> UploadPicturesOnCloudinary(IEnumerable<HttpPostedFileBase> pictures)
+        private IEnumerable<Image> UploadPicturesOnCloudinary(IEnumerable<HttpPostedFileBase> pictures)
         {
             if (pictures == null) return null;
             List<Image> PictureUrls = new List<Image>();
@@ -479,11 +484,11 @@ namespace Exernet.Controllers
         [HttpPost]
         public JsonResult DeleteComment(string id)
         {
-            var coment = db.Comments.Find(Int32.Parse(id));
-            if (coment != null)
+            var comment = db.Comments.Find(Int32.Parse(id));
+            if (comment != null)
             {
-                db.Comments.Remove(coment);
-                db.Entry(coment).State = EntityState.Deleted;
+                db.Comments.Remove(comment);
+                db.Entry(comment).State = EntityState.Deleted;
                 db.SaveChanges();
                 return new JsonResult() { Data = id };
             }
@@ -565,6 +570,13 @@ namespace Exernet.Controllers
         public ActionResult ViewTasksOrderedByUploadDate()
         {
             return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.UploadDate).ToList());
+        }
+        public string DeleteImage(string ImageId) {
+            var image = db.Images.Find(Int32.Parse(ImageId));
+            db.Images.Remove(image);
+            db.Entry(image).State = EntityState.Deleted;
+            db.SaveChanges();
+            return ImageId;
         }
     }
 }
