@@ -15,8 +15,9 @@ using System.Data.Entity;
 
 namespace Exernet.Controllers
 {
-    [Authorize]
+    
     [Culture]
+    [AllowAnonymous]
     public class UserController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -290,6 +291,22 @@ namespace Exernet.Controllers
             db.SaveChanges();
 
             return PartialView("~/Views/User/ChangeRole/_UserRole.cshtml", db.Users.Find(userId));
+        }
+
+        public ActionResult Block(string userId) 
+        {
+            var user = db.Users.Find(userId);
+            if(user.isBlocked)
+            {
+                user.isBlocked = false;
+            }
+            else
+            {
+                user.isBlocked = true;
+            }
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return PartialView("~/Views/User/_ChangeBlock.cshtml", db.Users.Find(userId));
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model Exernet.Models.ApplicationUser
+
+@if (User.IsInRole("Administrator"))
+{
+    if (!Model.UserName.Equals(User.Identity.Name))
+    {
+        if (Model.isBlocked)
+        {
+            @Ajax.ActionLink("Unblock", "Block", "User", new { userId = Model.Id }, new AjaxOptions { UpdateTargetId = "block_" + Model.UserName }, new { @class = "btn btn-danger" })
+        }
+        else
+        {
+            @Ajax.ActionLink("Block", "Block", "User", new { userId = Model.Id }, new AjaxOptions { UpdateTargetId = "block_" + Model.UserName }, new { @class = "btn btn-danger" })
+        }
+    }
+}

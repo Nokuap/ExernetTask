@@ -9,9 +9,11 @@ using Exernet.Models;
 namespace Exernet.Controllers
 {
     [Culture]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
         public ActionResult Index()
         {
             return View();

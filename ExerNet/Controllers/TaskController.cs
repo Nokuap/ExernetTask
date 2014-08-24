@@ -21,6 +21,7 @@ using System.IO;
 namespace Exernet.Controllers
 {
     [Culture]
+    [Authorize]
     public class TaskController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -85,6 +86,7 @@ namespace Exernet.Controllers
             return RedirectToAction("PostTask", new { id = GetId(model) });
         }
 
+        [AllowAnonymous]
         private Chart createGraphic(ExernetTaskViewModel model)
         {
             var chart = new Chart();
@@ -96,6 +98,8 @@ namespace Exernet.Controllers
             return chart;
 
         }
+
+        [AllowAnonymous]
         private ICollection<Formula> GenerateFormulasForTaskModel(IEnumerable<string> formulasUrls)
         {
             List<Formula> formulas = new List<Formula>();
@@ -110,6 +114,7 @@ namespace Exernet.Controllers
             else return null;
         }
 
+        [AllowAnonymous]
         private string[] parseForVideo(string[] listOfVideos)
         {
             string pattern = @".+?/?v=";
@@ -121,6 +126,8 @@ namespace Exernet.Controllers
 
             return listOfVideos;
         }
+
+        [AllowAnonymous]
         private ICollection<Video> GenerateVideosForTaskModel(string p)
         {
             if ((p != null) && p.Length > 0)
@@ -142,6 +149,7 @@ namespace Exernet.Controllers
             }
         }
 
+        [AllowAnonymous]
         private int GetId(ExernetTaskViewModel model)
         {
             int id;
@@ -156,6 +164,7 @@ namespace Exernet.Controllers
             return id;
         }
 
+        [AllowAnonymous]
         private ICollection<Tag> GenerateTagsForTaskModel(string tags)
         {
             string[] listOfTags = SplitString(tags);
@@ -177,6 +186,7 @@ namespace Exernet.Controllers
             return Tags;
         }
 
+        [AllowAnonymous]
         private string[] SplitString(string term)
         {
             string[] str = term.Split(new string[] { ", ", ",", "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
@@ -188,7 +198,7 @@ namespace Exernet.Controllers
             return str;
         }
 
-
+        [AllowAnonymous]
         private ICollection<Answer> GenerateAnswersForTaskModel(string term)
         {
             string[] listOfTags = SplitString(term);
@@ -204,6 +214,7 @@ namespace Exernet.Controllers
             return answers;
         }
 
+        [AllowAnonymous]
         public ActionResult PostTask(int id)
         {
 
@@ -219,6 +230,7 @@ namespace Exernet.Controllers
             }
         }
 
+        [AllowAnonymous]
         public ActionResult EditTask(int id)
         {
 
@@ -250,18 +262,21 @@ namespace Exernet.Controllers
             }
         }
 
+        [AllowAnonymous]
         private static string GenerateStringVideosForTaskModel(ICollection<Video> collection)
         {
             string stringOfVideos = string.Join("; ", collection.Select(obj => obj.VideoURL));
             return stringOfVideos;
         }
 
+        [AllowAnonymous]
         private static string GenerateStringAnswersForTaskModel(ICollection<Answer> collection)
         {
             string stringOfAnswers = string.Join("; ", collection.Select(obj => obj.Text));
             return stringOfAnswers;
         }
 
+        [AllowAnonymous]
         public static string GenerateStringTagsForTaskModel(ICollection<Tag> collection)
         {
             string stringOfTags = string.Join(", ", collection.Select(obj => obj.Text));
@@ -269,6 +284,7 @@ namespace Exernet.Controllers
             return stringOfTags;
         }
 
+        [AllowAnonymous]
         public static string GenerateStringCommentsForTaskModel(ICollection<Comment> collection)
         {
             string stringOfTags = string.Join(", ", collection.Select(obj => obj.Text));
@@ -276,6 +292,7 @@ namespace Exernet.Controllers
             return stringOfTags;
         }
 
+        [AllowAnonymous]
         public JsonResult TagSearch(string term)
         {
 
@@ -284,6 +301,7 @@ namespace Exernet.Controllers
             return Json(tags, JsonRequestBehavior.AllowGet);
         }
 
+        [AllowAnonymous]
         private List<Tag> GetTag(string searchString)
         {
             var tags = db.Tags.Where(a => a.Text.Contains(searchString)).ToList();
@@ -291,6 +309,7 @@ namespace Exernet.Controllers
 
         }
 
+        [AllowAnonymous]
         public ActionResult SetLike(int id, bool likeState)
         {
             if (!User.Identity.GetUserName().Equals(db.Tasks.Find(id).User.UserName))
@@ -326,12 +345,14 @@ namespace Exernet.Controllers
             return PartialView(db.Tasks.Find(id));
         }
 
+        [AllowAnonymous]
         public ActionResult GetTag()
         {
             var listOfTags = db.Tags.OrderByDescending(obj => obj.Tasks.Count).Take(25);
             return PartialView(listOfTags);
         }
 
+        [AllowAnonymous]
         private IEnumerable<Image> UploadPicturesOnCloudinary(IEnumerable<HttpPostedFileBase> pictures)
         {
             if (pictures == null) return null;
@@ -354,6 +375,8 @@ namespace Exernet.Controllers
             }
             return PictureUrls;
         }
+
+        [AllowAnonymous]
         public ActionResult SolveTask(int id, string solveTry)
         {
             var solution = db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
@@ -380,6 +403,7 @@ namespace Exernet.Controllers
             return PartialView(solution);
         }
 
+        [AllowAnonymous]
         public void CountPopularity(int id)
         {
             var task = db.Tasks.Find(id);
@@ -387,6 +411,8 @@ namespace Exernet.Controllers
             db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();
         }
+
+        [AllowAnonymous]
         public void CountRating()
         {
             var users = db.Users.OrderByDescending(obj => obj.Solutions.Count);
@@ -399,6 +425,7 @@ namespace Exernet.Controllers
             db.SaveChanges();
         }
 
+        [AllowAnonymous]
         public ActionResult CheckSolve(int id)
         {
             var solution = db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
@@ -414,6 +441,7 @@ namespace Exernet.Controllers
 
         }
 
+        [AllowAnonymous]
         public ActionResult LeaveComment(int id, string commentText)
         {
             var comment = new Comment();
@@ -431,17 +459,20 @@ namespace Exernet.Controllers
             return PartialView("Comment", c);
         }
 
+        [AllowAnonymous]
         public ActionResult SaveFormula(string formulaURL)
         {
             return PartialView("Formula");
         }
 
+        [AllowAnonymous]
         public List<ExernetTask> GetFewTasksForPartialView(int BlockNumber, int BlockSize)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
             return null;
         }
 
+        [AllowAnonymous]
         public ActionResult FullTextSearching(string searchText)
         {
             LuceneSearch.ClearLuceneIndex();
@@ -459,6 +490,7 @@ namespace Exernet.Controllers
             return View(results);
         }
 
+        [AllowAnonymous]
         public ActionResult ShowTags(string tag)
         {
             var results = db.Tasks.OrderByDescending(x => x.UploadDate).Where(obj => obj.Tags.FirstOrDefault(t => t.Text.Equals(tag)) != null);
@@ -468,6 +500,7 @@ namespace Exernet.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult DeleteTask(string id)
         {
             var tsk = db.Tasks.Find(Int32.Parse(id));
@@ -482,6 +515,7 @@ namespace Exernet.Controllers
             else return null;
         }
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult DeleteComment(string id)
         {
             var comment = db.Comments.Find(Int32.Parse(id));
@@ -495,6 +529,7 @@ namespace Exernet.Controllers
             else return null;
         }
 
+        [AllowAnonymous]
         private void ClearTask(ExernetTask tsk)
         {
             tsk.Answers.Clear();
@@ -508,6 +543,7 @@ namespace Exernet.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult EmailSend(String mailBody, int id)
         {
             MailMessage mail = new MailMessage();
@@ -528,7 +564,7 @@ namespace Exernet.Controllers
             return RedirectToAction("PostTask", new { id = id });
         }
 
-
+        [AllowAnonymous]
         public ActionResult BlockTask(int id)
         {
             var task = db.Tasks.Find(id);
@@ -538,16 +574,19 @@ namespace Exernet.Controllers
             return RedirectToAction("PostTask", new { id = id });
         }
 
+        [AllowAnonymous]
         public ActionResult Graphic()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult ViewListOfComments(IEnumerable<Comment> Model)
         {
             return PartialView("_ListOfComments", Model.OrderByDescending(obj => obj.Date).Take(5));
         }
 
+        [AllowAnonymous]
         public IEnumerable<Comment> GetFewCommentsForPartialView(string TaskId, int BlockNumber, int BlockSize)
         {
             var task = db.Tasks.Find(Int32.Parse(TaskId));
@@ -556,6 +595,7 @@ namespace Exernet.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult InfiniteComments(string TaskId, int BlockNumber)
         {
             int BlockSize = 5;
@@ -563,14 +603,17 @@ namespace Exernet.Controllers
             return PartialView("_ListOfComments", comments);
         }
 
+        [AllowAnonymous]
         public ActionResult ViewTasksOrderedByPopularity()
         {
             return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.Popularity).ToList());
         }
+        [AllowAnonymous]
         public ActionResult ViewTasksOrderedByUploadDate()
         {
             return PartialView("_ShowTaskOnly", db.Tasks.OrderByDescending(obj => obj.UploadDate).ToList());
         }
+        [AllowAnonymous]
         public string DeleteImage(string ImageId) {
             var image = db.Images.Find(Int32.Parse(ImageId));
             db.Images.Remove(image);

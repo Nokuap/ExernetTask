@@ -13,6 +13,7 @@ namespace Exernet.Models
         public int Rating { get; set; }
         public string ProfileFotoURL { get; set; }
         public bool IsAdmin { get; set; }
+        public bool isBlocked { get; set; }
         public virtual ICollection<Solution> Solutions { get; set; }
         public virtual ICollection<ExernetTask> Tasks { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
