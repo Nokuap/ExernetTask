@@ -489,4 +489,7 @@
   <data name="VideoLink" xml:space="preserve">
     <value>Link on video from Youtube</value>
   </data>
+  <data name="FormulaFromTask" xml:space="preserve">
+    <value>Formula from task</value>
+  </data>
 </root>

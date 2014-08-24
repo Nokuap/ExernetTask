@@ -486,4 +486,7 @@
   <data name="VideoLink" xml:space="preserve">
     <value>Ссылка на видео с Youtube</value>
   </data>
+  <data name="FormulaFromTask" xml:space="preserve">
+    <value>Формула из задачи</value>
+  </data>
 </root>
