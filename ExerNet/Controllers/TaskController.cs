@@ -60,7 +60,7 @@ namespace Exernet.Controllers
                 task.Chart = createGraphic(model);
             }
 
-            task.Formulas = GenerateFormulasForTaskModel(model.Formulas);
+            task.Formulas = GenerateFormulasForTaskModel(model.FormulaUrls);
             task.Title = model.Title;
             task.Category = model.Category;
             task.Block = true;
@@ -68,11 +68,8 @@ namespace Exernet.Controllers
             task.UploadDate = DateTime.Now;
             if (model.Id == 0)
             {
-                if (task.Images != null)
-                { 
-                    task.Images.Concat(UploadPicturesOnCloudinary(Images)); 
-                }
-                else task.Images = UploadPicturesOnCloudinary(Images).ToList();
+                if(Images!=null)
+                task.Images = UploadPicturesOnCloudinary(Images).ToList();
                 db.Tasks.Add(task);
                 db.Entry(task).State = EntityState.Added;
             }
@@ -233,6 +230,7 @@ namespace Exernet.Controllers
                 task.Videos = GenerateStringVideosForTaskModel(model.Videos);
                 task.Title = model.Title;
                 task.Images = model.Images;
+                task.Formulas=model.Formulas;
                 if (model.Chart != null)
                 {
                     task.Expression = model.Chart.Expression;
@@ -573,10 +571,32 @@ namespace Exernet.Controllers
         }
         public string DeleteImage(string ImageId) {
             var image = db.Images.Find(Int32.Parse(ImageId));
+
+            Cloudinary cloudinary = new Cloudinary(new Account(
+            "goodcloud",
+            "836668373272998",
+            "HJ2Q7oe53Ru7muxKcpVj4ZdqVPQ"));
+
+            var imageToDelete = ImageId;
+            var public_id = Path.GetFileNameWithoutExtension(imageToDelete);
+            DelResParams deleteParams = new DelResParams()
+            {
+                PublicIds = new System.Collections.Generic.List<String>() { String.Format(@"Exernet/ProfilePictures/{0}", public_id) },
+                Invalidate = true
+            };
+            cloudinary.DeleteResources(deleteParams);
             db.Images.Remove(image);
             db.Entry(image).State = EntityState.Deleted;
             db.SaveChanges();
             return ImageId;
+        }
+        public string DeleteFormula(string FormulaId) 
+        {
+            var formula = db.Formulas.Find(Int32.Parse(FormulaId));
+            db.Formulas.Remove(formula);
+            db.Entry(formula).State = EntityState.Deleted;
+            db.SaveChanges();
+            return FormulaId;
         }
     }
 }

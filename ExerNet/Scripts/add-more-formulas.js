@@ -5,8 +5,8 @@ function addFormulaUrl() {
 
     // create new input
     var column = document.createElement("div");
-    column.name = "Formulas";
-    column.id = "image_"+count;
+    column.name = "Formulas.FormulaUrl";
+    column.id = "formula_"+count;
     column.className = "col-md-6 row";
     var left = document.createElement("div");
     left.className = "col-md-10";
@@ -24,12 +24,12 @@ function addFormulaUrl() {
 
     var hidden = document.createElement("input");
     hidden.type = "hidden";
-    hidden.name = "Formulas";
+    hidden.name = "FormulaUrls";
 
     button.onclick = function del() {
         var container = document.getElementById("formulas_container");
         var index = this.name;
-        $("#image_" + index).remove();
+        $("#formula_" + index).remove();
     }
     var source = document.getElementById("equation").src;
     if (source != '' && source !=document.URL) {
