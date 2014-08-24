@@ -255,5 +255,19 @@ namespace Exernet.Controllers
             ViewBag.UserName = model.UserName;
             return PartialView("~/Views/Task/_ShowTaskSolutions.cshtml", tasks);
         }
+        public ActionResult MakeHimUser(string username, string parentname)
+        {
+            var user = UserManager.FindByName(username);
+            user.Roles.Remove(new IdentityUserRole() { RoleId = "1",UserId=user.Id });
+            return RedirectToAction("Details","User", parentname);
+        }
+
+        public ActionResult MakeHimAdmin(string username, string parentname) 
+        {
+            var user = UserManager.FindByName(username);
+            user.Roles.Add(new IdentityUserRole() { RoleId = "1", UserId = user.Id });
+            user.IsAdmin = true;
+            return RedirectToAction("Details", "User", parentname);
+        }
     }
 }

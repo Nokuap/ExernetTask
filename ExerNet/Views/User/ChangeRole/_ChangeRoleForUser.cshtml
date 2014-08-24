@@ -1,0 +1,9 @@
+﻿@model String
+<div id="adminInfo_@Model">
+    <h6>@Resources.Resource.Administrator</h6>
+    @if (!User.Identity.Name.Equals(@Model))
+    {
+        Html.ActionLink(@Resources.Resource.ChangeRole,"MakeHimUser", "User", new { id = @Model }, new { @class = "btn btn-info btn-xs", title = @Resources.Resource.MakeHimUser});
+    @*<div class="btn btn-info btn-xs" onclick="changeRoleToUser('@Model')" title="@Resources.Resource.MakeHimUser">@Resources.Resource.ChangeRole</div>*@
+    }
+</div>

@@ -462,6 +462,15 @@
   <data name="ChooseImage" xml:space="preserve">
     <value>Choose image</value>
   </data>
+  <data name="MakeHimAdmin" xml:space="preserve">
+    <value>Make an administrator</value>
+  </data>
+  <data name="MakeHimUser" xml:space="preserve">
+    <value>Remove from admin list</value>
+  </data>
+  <data name="ChangeRole" xml:space="preserve">
+    <value>Change role</value>
+  </data>
   <data name="NewTasks" xml:space="preserve">
     <value>New tasks</value>
   </data>
