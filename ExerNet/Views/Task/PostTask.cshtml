@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h1>@Model.Title</h1>
-                <div id="TaskId"  hidden>@Model.Id</div>
+                <div id="TaskId" hidden>@Model.Id</div>
                 <div class="row">
                     <div class="col-md-8">
                         <p class="lead">
@@ -51,62 +51,69 @@
                     @if (Model.Block)
                     {
                         <div class="col-md-6" align=right>
-                            @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = true }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-up" })
+                            }
                             <div id="SetLike">
                                 @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
                             </div>
-                            @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
-                        </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @Ajax.ActionLink(" ", "SetLike", new { id = Model.Id, likeState = false }, new AjaxOptions { UpdateTargetId = "SetLike" }, new { @class = "glyphicon glyphicon-thumbs-down" })
+                            }
+                            </div>
                     }
                     else
                     {
-                        <div class="col-md-6" align=right>
-                            <span class="glyphicon glyphicon-heart-empty"></span>@{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
-                        </div>
+                                <div class="col-md-6" align=right>
+                                    <span class="glyphicon glyphicon-heart-empty"></span>@{ Html.RenderPartial("/Views/Task/SetLike.cshtml", Model); }
+                                </div>
                     }
-                </div>
-                <hr />
+                        </div>
+                        <hr />
 
-                <div class="row">
-                    <div class="col-md-12 img img-responsive" style="word-break: break-all; width:inherit">
-                        <p class="img-responsive">@Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(Model.Text)))</p>
-                    </div>
-                </div>
-                <hr />
+                        <div class="row">
+                            <div class="col-md-12 img img-responsive" style="word-break: break-all; width:inherit">
+                                <p class="img-responsive">@Html.Raw(System.Web.HttpUtility.HtmlDecode(@MarkdownHelper.Markdown(Model.Text)))</p>
+                            </div>
+                        </div>
+                        <hr />
 
-                <div class="row form-group">
-                    @Html.Partial("_ShowFormulasWithZoom", Model.Formulas)
-                </div>
+                        <div class="row form-group">
+                            @Html.Partial("_ShowFormulasWithZoom", Model.Formulas)
+                        </div>
 
-                @if (Model.Videos.Count > 0)
+                        @if (Model.Videos.Count > 0)
                 {
-                    <div class="embed-responsive embed-responsive-16by9">
-                        @foreach (var str in Model.Videos.Select(obj => obj.VideoURL))
+                            <div class="embed-responsive embed-responsive-16by9">
+                                @foreach (var str in Model.Videos.Select(obj => obj.VideoURL))
                         {
-                            <iframe class="embed-responsive-item" src=@str frameborder="0" allowfullscreen></iframe>
+                                    <iframe class="embed-responsive-item" src=@str frameborder="0" allowfullscreen></iframe>
 
                         }
-                    </div>
-                    <hr />
+                            </div>
+                            <hr />
                 }
-                <div class="row form-group">
-                    @Html.Partial("_ShowImagesWithZoom", Model.Images)
-                </div>
-                @if (Model.Chart != null)
+                        <div class="row form-group">
+                            @Html.Partial("_ShowImagesWithZoom", Model.Images)
+                        </div>
+                        @if (Model.Chart != null)
                 {
-                    <hr>
-                    <div class="row" id="chart1" style="height:200px;width:300px;"></div>
-                    <textarea hidden="" id="expression">@Model.Chart.Expression</textarea>
-                    <textarea hidden="" id="from">@Model.Chart.From</textarea>
-                    <textarea hidden="" id="to">@Model.Chart.To</textarea>
-                    <textarea hidden="" id="step">@Model.Chart.Step</textarea>
+                            <hr>
+                            <div class="row" id="chart1" style="height:200px;width:300px;"></div>
+                            <textarea hidden="" id="expression">@Model.Chart.Expression</textarea>
+                            <textarea hidden="" id="from">@Model.Chart.From</textarea>
+                            <textarea hidden="" id="to">@Model.Chart.To</textarea>
+                            <textarea hidden="" id="step">@Model.Chart.Step</textarea>
                 }
-                @if (Model.Block)
+                        @if (Model.Block && User.Identity.IsAuthenticated)
                 {
-                    <hr>
-                    <div class=" form-group">
-                        @Html.Action("CheckSolve", "Task", new { id = Model.Id })
-                    </div>
+                            <hr>
+                            <div class=" form-group">
+                                @Html.Action("CheckSolve", "Task", new { id = Model.Id })
+                            </div>
+                            
                     using (Ajax.BeginForm("LeaveComment", new { id = Model.Id }, new AjaxOptions
                         {
                             UpdateTargetId = "comment",
@@ -125,37 +132,37 @@
                     }
                     @Html.Partial("_EmailBox", Model)
                 }
-                <div class="media" id="comment">
-                    <a class="pull-left" href="#">
-                    </a>
-                </div>
-                <div id="commentslist">
-                        @{Html.RenderAction("ViewListOfComments", "Task", new { Model = Model.Comments });}
-                    <div id="loadmoreajaxloader" style="display:none;"><center><img src="~/Scripts/ajax-loader.gif" /></center></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div id="GetTag">
-                    @Html.Action("GetTag", "Task")
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">@Resources.Resource.UsersThatSolved</h3>
+                        <div class="media" id="comment">
+                            <a class="pull-left" href="#">
+                            </a>
+                        </div>
+                        <div id="commentslist">
+                            @{Html.RenderAction("ViewListOfComments", "Task", new { Model = Model.Comments });}
+                            <div id="loadmoreajaxloader" style="display:none;"><center><img src="~/Scripts/ajax-loader.gif" /></center></div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        @Html.Action("ShowUsersForTask", "User", Model.Id)
+                        <div class="col-md-4">
+                            <div id="GetTag">
+                                @Html.Action("GetTag", "Task")
+                            </div>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">@Resources.Resource.UsersThatSolved</h3>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.Action("ShowUsersForTask", "User", Model.Id)
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+            </body>
+        </html>
 
-<script src="~/Scripts/jqPlot/jquery.jqplot.js" type="text/javascript"></script>
-<script src="~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript"></script>
-<script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript"></script>
-<script src="~/Scripts/parser.js" type="text/javascript"></script>
-<script src="~/Scripts/infinite-comments.js" type="text/javascript"></script>
-<script type="text/javascript" src="~/Scripts/build-graph2.js"></script>
+        <script src="~/Scripts/jqPlot/jquery.jqplot.js" type="text/javascript"></script>
+        <script src="~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/parser.js" type="text/javascript"></script>
+        <script src="~/Scripts/infinite-comments.js" type="text/javascript"></script>
+        <script type="text/javascript" src="~/Scripts/build-graph2.js"></script>
 
