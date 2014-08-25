@@ -203,10 +203,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Code\MarkDownEba.cs" />
-    <Compile Include="Migrations\201408250857469_fst.cs" />
-    <Compile Include="Migrations\201408250857469_fst.Designer.cs">
-      <DependentUpon>201408250857469_fst.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -544,9 +540,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408250857469_fst.resx">
-      <DependentUpon>201408250857469_fst.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Category.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Category.en.Designer.cs</LastGenOutput>
