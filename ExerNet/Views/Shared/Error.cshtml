@@ -11,5 +11,11 @@
 <h1 class="text-danger">@Resources.Resource.Error.</h1>
 <h2 class="text-danger">@Resources.Resource.ErrorMessage</h2>
 
-@Model.Exception.Message
-
+<button class="btn btn-danger btn-xs" data-toggle="collapse" data-target="#error">
+    <div class="glyphicon glyphicon-flash"></div> @Resources.Resource.MoreErrorInfo
+</button>
+<div id="error" class="panel-collapse collapse">
+    <div class="panel-body">
+        @Model.Exception.Message
+    </div>
+</div>

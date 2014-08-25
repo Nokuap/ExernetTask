@@ -442,19 +442,23 @@ namespace Exernet.Controllers
         [AllowAnonymous]
         public ActionResult LeaveComment(int id, string commentText)
         {
-            var comment = new Comment();
-            comment.Date = DateTime.Now;
-            comment.Text = commentText;
-            comment.UserId = User.Identity.GetUserId();
-            db.Tasks.Find(id).Comments.Add(comment);
+            if (!commentText.Equals(""))
+            {
+                var comment = new Comment();
+                comment.Date = DateTime.Now;
+                comment.Text = commentText;
+                comment.UserId = User.Identity.GetUserId();
+                db.Tasks.Find(id).Comments.Add(comment);
 
 
-            db.Entry(db.Tasks.Find(id).Comments.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()) && obj.Date.Equals(comment.Date))).State = EntityState.Added;
-            db.SaveChanges();
-            var c = db.Comments.Include("User").FirstOrDefault(obj => obj.Id == comment.Id);
+                db.Entry(db.Tasks.Find(id).Comments.FirstOrDefault(obj => obj.UserId.Equals(User.Identity.GetUserId()) && obj.Date.Equals(comment.Date))).State = EntityState.Added;
+                db.SaveChanges();
+                var c = db.Comments.Include("User").FirstOrDefault(obj => obj.Id == comment.Id);
 
 
-            return PartialView("Comment", c);
+                return PartialView("Comment", c);
+            }
+            else return null;
         }
 
         [AllowAnonymous]

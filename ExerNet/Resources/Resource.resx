@@ -489,4 +489,7 @@
   <data name="FormulaFromTask" xml:space="preserve">
     <value>Формула из задачи</value>
   </data>
+  <data name="MoreErrorInfo" xml:space="preserve">
+    <value>Показать информацию об ошибке</value>
+  </data>
 </root>
