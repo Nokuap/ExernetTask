@@ -232,7 +232,7 @@ namespace Exernet.Controllers
         {
 
             var model = db.Tasks.Find(id);
-            if (model.User.UserName.Equals(User.Identity.GetUserName()))
+            if (model.User.UserName.Equals(User.Identity.GetUserName()) || User.IsInRole("Administrator"))
             {
                 ExernetTaskViewModel task = new ExernetTaskViewModel();
 

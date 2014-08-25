@@ -40,7 +40,6 @@
                     @if (User.Identity.IsAuthenticated) {
                     <li>@Html.ActionLink(@Resources.Resource.CreateTask, "CreateTask", "Task")</li>
                     }
-                    <li>@Html.ActionLink("Post", "PostTask/10", "Task")</li>
                 </ul>
                 @using (Html.BeginForm("FullTextSearching", "Task", FormMethod.Post, new { @class = "navbar-form navbar-left" }))
                 {

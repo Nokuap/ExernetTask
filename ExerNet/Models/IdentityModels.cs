@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Exernet.Models
 {
@@ -40,7 +41,10 @@ namespace Exernet.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Solution> Solutions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+
+        
     }
 
+    
    
 }
