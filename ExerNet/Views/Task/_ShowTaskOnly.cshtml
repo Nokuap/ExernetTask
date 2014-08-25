@@ -6,11 +6,14 @@
         <div class="panel-heading" style="word-break:break-all;">
             <div class="row">
                 <div class="col-md-7 pull-left">
-                    @Html.ActionLink('"' + item.Title + '"', "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { title = String.Format("Task \"{0}\" view page", item.Title) })
-                    @Resources.Resource.By
-                    @Html.ActionLink(item.User.UserName, "Details", "User", routeValues: new { id = item.User.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg+" \"{0}\"", item.User.UserName) })
-                    <span class="glyphicon glyphicon-star"></span> @item.User.Rating
+                    <div class="col-md-12">
+                        @Html.ActionLink('"' + item.Title + '"', "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { title = String.Format("Task \"{0}\" view page", item.Title) })
+                        @Resources.Resource.By
+                        @Html.ActionLink(item.User.UserName, "Details", "User", routeValues: new { id = item.User.UserName }, htmlAttributes: new { title = String.Format(@Resources.Resource.AccountPg + " \"{0}\"", item.User.UserName) })
+                        <span class="badge"><span class="glyphicon glyphicon-star"></span> @item.User.Rating</span>
+                    </div><div class="col-md-12">
                     @Resources.Resource.PostedOn @item.UploadDate
+                    </div>
                 </div>
 
                 <div class="col-md-5" >
@@ -53,14 +56,16 @@
                     }
                 </div>
                 <div class="col-md-4" align="right">
-                    <span class="glyphicon glyphicon-star-empty" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Popularity></span> @item.Popularity
+                    <span class="badge" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Popularity>
+                        <span class="glyphicon glyphicon-star-empty"></span> @item.Popularity
+                    </span>
+                    <span class="badge" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Likes>
+                        <span class="glyphicon glyphicon-heart-empty"></span>
+                        @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", item); }
+                    </span>
 
-                    <span class="glyphicon glyphicon-heart-empty" data-toggle="tooltip" data-placement="top" data-original-title=@Resources.Resource.Likes></span>
-                    @{ Html.RenderPartial("/Views/Task/SetLike.cshtml", item); }
-
-
-                    @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
-                </div>
+                        @Html.ActionLink(@Resources.Resource.GoToThisTask, "PostTask", "Task", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-xs pull-right", title = String.Format("Task \"{0}\" view page", item.Title) })
+</div>
             </div>
 
 

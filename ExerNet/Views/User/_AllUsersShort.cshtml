@@ -37,20 +37,20 @@
                         {
                             if (!User.Identity.GetUserName().Equals(user.UserName))
                             {
-                                @Ajax.ActionLink("Change role", "ChangeRole", "User", new { userId = user.Id }, new AjaxOptions { UpdateTargetId = user.UserName }, new { @class = "btn btn-danger"})
+                                @Ajax.ActionLink("Change role", "ChangeRole", "User", new { userId = user.Id }, new AjaxOptions { UpdateTargetId = user.UserName }, new { @class = "btn btn-danger btn-xs" })
                             }
                         }
                     </div>
                     <div class="col-md-3" id="block_@user.UserName">
                         @{ Html.RenderPartial("~/Views/User/_ChangeBlock.cshtml", user); }
-                        </div>
-                        <div class="col-md-3">
-                            @if(User.IsInRole("Administrator") && !user.UserName.Equals(User.Identity.Name))
-                        {
-                                <button type="button" class="close" onclick="deleting('@user.UserName')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
-                        }
-                        </div>
                     </div>
+                    <div class="col-md-3">
+                        @if (User.IsInRole("Administrator") && !user.UserName.Equals(User.Identity.Name))
+                        {
+                            <button type="button" class="close" onclick="deleting('@user.UserName')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
