@@ -92,7 +92,7 @@ namespace Exernet.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1407322274/Exernet/yellow-user-icon.png", Rating = 1};
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1407322274/Exernet/yellow-user-icon.png", Rating = db.Users.Max(obj => obj.Rating) + 1 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
