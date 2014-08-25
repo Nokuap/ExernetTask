@@ -492,4 +492,7 @@
   <data name="MoreErrorInfo" xml:space="preserve">
     <value>Показать информацию об ошибке</value>
   </data>
+  <data name="ProblemWithYourTask" xml:space="preserve">
+    <value>Проблема с Вашей задачей </value>
+  </data>
 </root>

@@ -56,19 +56,4 @@
     </div>
 }
 
-<script type="text/javascript">
-    function deleting(username) {
-        $.ajax({
-            url: "http://localhost:54084/User/Delete",
-            dataType: "json",
-            type: "POST",
-            data: { id: username },
-            success: function (data) {
-                $("#user_" + data).remove();
-            },
-            error: function (e) {
-                alert("cannot delete this user");
-            }
-        });
-    }
-</script>
+<script src="Scripts/exernet-deleting.js"></script>

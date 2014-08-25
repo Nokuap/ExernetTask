@@ -20,16 +20,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function deletingComment(CommentId) {
-        $.ajax({
-            url: "http://localhost:54084/Task/DeleteComment",
-            dataType: "json",
-            type: "POST",
-            data: { id: CommentId },
-            success: function (data) {
-                $("#comment_" + data).remove();
-            }
-        });
-    });
-</script>
+<script src="Scripts/exernet-deleting.js"></script>

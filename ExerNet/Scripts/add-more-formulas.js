@@ -5,7 +5,7 @@ function addFormulaUrl() {
 
     // create new input
     var column = document.createElement("div");
-    column.name = "Formulas.FormulaUrl";
+    column.name = "Formulas";
     column.id = "formula_"+count;
     column.className = "col-md-6 row";
     var left = document.createElement("div");

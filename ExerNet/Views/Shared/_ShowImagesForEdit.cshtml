@@ -23,19 +23,4 @@
 </div>
 
 <script src="~/Scripts/add-more-pictures.js"></script>
-<script type="text/javascript">
-    function deleteImage(imageId) {
-        $.ajax({
-            url: "http://localhost:54084/Task/DeleteImage",
-            dataType: "json",
-            type: "POST",
-            data: { ImageId: imageId },
-            success: function (data) {
-                $("#image_" + data).remove();
-            },
-            error: function (e) {
-                alert("cannot delete this image");
-            }
-        });
-    }
-</script>
+<script src="Scripts/exernet-deleting.js"></script>

@@ -808,6 +808,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Проблема с Вашей задачей .
+        /// </summary>
+        public static string ProblemWithYourTask {
+            get {
+                return ResourceManager.GetString("ProblemWithYourTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Рейтинг.
         /// </summary>
         public static string Rating {

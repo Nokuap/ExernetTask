@@ -25,7 +25,7 @@
                         @if(User.IsInRole("Administrator"))
                         { 
                         <div class="col-md-2">
-                            <button type="button" class="close delete" id="@item.Id" name="delete"  data-toggle="tooltip" data-placement="top" title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
+                            <button type="button" class="close" onclick="deleteTask('@item.Id')" name="delete"  data-toggle="tooltip" data-placement="top" title="Delete"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
                         </div>
                         }
                     </div>
@@ -68,17 +68,4 @@
     </div>
 </div>
 }
-<script type="text/javascript">
-    $(".delete").click(function () {
-        var id = $(this).attr("id");
-        $.ajax({
-            url: "http://localhost:54084/Task/DeleteTask",
-            dataType: "json",
-            type: "POST",
-            data: { id: id },
-            success: function (data) {
-                $("#element_" + data).remove();
-            }
-        });
-    });
-</script>
+<script src="Scripts/exernet-deleting.js"></script>

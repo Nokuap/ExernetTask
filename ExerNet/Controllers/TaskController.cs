@@ -375,6 +375,26 @@ namespace Exernet.Controllers
         }
 
         [AllowAnonymous]
+        private string UploadOnePictureOnCloudinary(HttpPostedFileBase picture)
+        {
+            if (picture == null) return null;
+            List<Image> PictureUrls = new List<Image>();
+            Cloudinary cloudinary = new Cloudinary(new Account(
+           "goodcloud",
+           "836668373272998",
+           "HJ2Q7oe53Ru7muxKcpVj4ZdqVPQ"));
+            
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(picture.FileName, picture.InputStream),
+                    Folder = "Exernet/TaskPictures"
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+                return uploadResult.Uri.AbsoluteUri;
+        }
+
+        [AllowAnonymous]
         public ActionResult SolveTask(int id, string solveTry)
         {
             var solution = db.Tasks.Find(id).Solutions.FirstOrDefault(obj => obj.User.UserName.Equals(User.Identity.Name));
@@ -551,7 +571,7 @@ namespace Exernet.Controllers
             MailMessage mail = new MailMessage();
             mail.To.Add(db.Tasks.Find(id).User.Email);
             mail.From = new MailAddress("noreply@gmail.com", User.Identity.GetUserName());
-            mail.Subject = "Problem with your task" + db.Tasks.Find(id).Title;
+            mail.Subject = "Problem with your task " + db.Tasks.Find(id).Title;
             mail.Body = mailBody;
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
@@ -560,7 +580,7 @@ namespace Exernet.Controllers
             smtp.UseDefaultCredentials = false;
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential
-            ("Nokuap@outlook.com", "298746773Pauk");// Enter seders User name and password
+            ("Nokuap@outlook.com", "298746773Pauk1");// Enter seders User name and password
             smtp.Send(mail);
             //return View("Index", _objModelMail);
             return RedirectToAction("PostTask", new { id = id });
@@ -644,6 +664,13 @@ namespace Exernet.Controllers
             db.Entry(formula).State = EntityState.Deleted;
             db.SaveChanges();
             return FormulaId;
+        }
+        public JsonResult UploadImage(HttpPostedFileBase Image) 
+        {
+            var url = UploadOnePictureOnCloudinary(Image);
+           
+            return Json(url, JsonRequestBehavior.AllowGet);
+            
         }
     }
 }

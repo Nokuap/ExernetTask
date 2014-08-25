@@ -135,17 +135,4 @@
 <script src="~/Scripts/parser.js" type="text/javascript"></script>
 <script type="text/javascript" src="~/Scripts/build-graph.js"></script>
 <script type="text/javascript" src="~/Scripts/build-graph2.js"></script>
-<script type="text/javascript">
-    function deleteFormula(formulaId)
-    {
-        $.ajax({
-            url: "http://localhost:54084/Task/DeleteFormula",
-            dataType: "json",
-            type: "POST",
-            data: { FormulaId: formulaId },
-            success: function (data) {
-                $("#oldFormulas_" + data).remove();
-            }
-        });
-    }
-</script>
+<script src="Scripts/exernet-deleting.js"></script>
