@@ -610,6 +610,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Показать информацию об ошибке.
+        /// </summary>
+        public static string MoreErrorInfo {
+            get {
+                return ResourceManager.GetString("MoreErrorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string Name {

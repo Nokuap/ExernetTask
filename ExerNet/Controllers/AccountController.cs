@@ -19,6 +19,7 @@ namespace Exernet.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -91,7 +92,7 @@ namespace Exernet.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1407322274/Exernet/yellow-user-icon.png" };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1407322274/Exernet/yellow-user-icon.png", Rating = db.Users.Max(obj=>obj.Rating)+1};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -278,7 +279,7 @@ namespace Exernet.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName,Email=model.Email };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1408205093/Exernet/ProfilePictures/j17mw98npc0qr5qrayhp.png" };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

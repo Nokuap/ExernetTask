@@ -492,4 +492,7 @@
   <data name="FormulaFromTask" xml:space="preserve">
     <value>Formula from task</value>
   </data>
+  <data name="MoreErrorInfo" xml:space="preserve">
+    <value>Show Error Massage</value>
+  </data>
 </root>
