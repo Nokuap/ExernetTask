@@ -1,6 +1,7 @@
 ﻿using Exernet.Code;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity.ModelConfiguration;
@@ -11,6 +12,7 @@ namespace Exernet.Models
     public class ApplicationUser : IdentityUser
     {
         public int Rating { get; set; }
+        [DefaultValue("http://res.cloudinary.com/goodcloud/image/upload/v1408205093/Exernet/ProfilePictures/j17mw98npc0qr5qrayhp.png")]
         public string ProfileFotoURL { get; set; }
         public bool IsAdmin { get; set; }
         public bool isBlocked { get; set; }

@@ -279,7 +279,7 @@ namespace Exernet.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName,Email=model.Email };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ProfileFotoURL = "http://res.cloudinary.com/goodcloud/image/upload/v1408205093/Exernet/ProfilePictures/j17mw98npc0qr5qrayhp.png" };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
